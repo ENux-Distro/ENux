@@ -13,9 +13,9 @@ ENux 1.0 is a Debian based distribution with Bedrock Linux on top, to be able to
 - emerge (Gentoo)
 - pacman (Arch)
 - dpkg / apt (Debian)
-- enux (our own package manager-manager)
+- pmm (Package Manager Manager)
 
-**Conflict resolution:** Bedrock Linux handles most compatibility headaches. For beginners, enux simplifies package management into one easy tool.
+**Conflict resolution:** Bedrock Linux handles most compatibility headaches. For beginners, pmm simplifies package management into one easy tool.
 
 ## Features
 

@@ -1,3 +1,8 @@
+# Note: ENux 2.0 will release today, the patch notes are
+Calamares now installs Bedrock Linux (-hijacks it)
+The Finalisers are combined, giving you a more simpler experience
+The branding scripts are integrated to the live iso
+
 # ENux 1.0
 
 Welcome to ENux 1.0 a Debian-based Linux distribution with Bedrock Linux on top

@@ -1,16 +1,11 @@
-# Note: ENux 2.0 will release today, the patch notes are
-Calamares now installs Bedrock Linux (-hijacks it)
-The Finalisers are combined, giving you a more simpler experience
-The branding scripts are integrated to the live iso
+# ENux 2.0
 
-# ENux 1.0
-
-Welcome to ENux 1.0 a Debian-based Linux distribution with Bedrock Linux on top
+Welcome to ENux 2.0 a Debian-based Linux distribution with Bedrock Linux on top
 
 
 ## What is ENux?
 
-ENux 1.0 is a Debian based distribution with Bedrock Linux on top, to be able to use:
+ENux 2.0 is a Debian based distribution with Bedrock Linux on top, to be able to use:
 
 - apk (Alpine)
 - xbps-install (Void)
@@ -27,19 +22,24 @@ ENux 1.0 is a Debian based distribution with Bedrock Linux on top, to be able to
 - Debian base for stability  
 - Bedrock Linux integration for cross-distro package support  
 - Unified enux package manager for beginners  
-- Lightweight XFCE desktop for performance  
+- Lightweight XFCE desktop for performance
+
+## Difference between ENux 1.0 and ENux 2.0
+
+ENux 1.0 used to be a 3 step installer, you run Calamares, then ENux Finaliser Phase 1, then ENux Finaliser Phase 2.
+But on ENux 2.0, Calamares wget's Bedrock Linux and installs (*--hijacks* it), and there is only a single Finaliser which *brl fetch*es the stratas
 
 ## Hardware Requirements
 
 **Minimum:**
 - CPU: 64-bit processor
 - RAM: 3 GB
-- Storage: 17 GB
+- Storage: 20 GB
 
 **Recommended:**
 - CPU: Dual-core
 - RAM: 5 GB
-- Storage: 30 GB
+- Storage: 33 GB
 
 **High-end:**
 - CPU: Quad-core
@@ -51,15 +51,13 @@ ENux 1.0 is a Debian based distribution with Bedrock Linux on top, to be able to
 ## Installation Guide
 
 1. Download the ENux 1.0 ISO from:  
-   - [ENux-1.0.iso](http://www.emirpasha.com/ENux-1.0.iso)
+   - [ENux-2.0.iso](http://www.emirpasha.com/ENux-2.0.iso)
 
 2. Flash the ISO to a USB drive using tools like **Rufus** or **Balena Etcher**.
 
 3. Boot from the USB and run the **ENux Installer**.
 
-4. After reboot, run **ENux Finaliser Phase 1** to install Bedrock Linux and necessary tools.
-
-5. Once the script reboots your machine, run **ENux Finaliser Phase 2** to install package managers via Bedrock (`brl`).
+4. After reboot, run **ENux Finaliser** to **brl fetch** the stratas
 
 ---
 

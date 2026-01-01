@@ -52,6 +52,7 @@ But on ENux 2.0, Calamares wget's Bedrock Linux and installs (*--hijacks* it), a
 
 1. Download the ENux 1.0 ISO from:  
    - [ENux-2.0.iso](http://www.emirpasha.com/ENux-2.0.iso)
+   - [ENux-2.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-2.0.iso/download)
 
 2. Flash the ISO to a USB drive using tools like **Rufus** or **Balena Etcher**.
 

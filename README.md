@@ -1,85 +1,94 @@
-# Note: ENux 2.1 Releasing Today the Patch Notes Are:
-ENux Finaliser is now a first-boot script!
+# ENux 2.1
 
-   On boot, it will ask if you installed your system with Calamares.
+Welcome to **ENux 2.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
-   Type “n” if you’re on the live ISO.
-
-   Type “y” if you’re on an installed system.
-
-Accidentally type “y” on the live system? No worries, it won’t work because BRL isn’t active.
-
-Type “n” on the installed system? Don’t worry, the .desktop shortcut is still there.
-
-Fixed: ENux Finaliser not deleting the .desktop shortcut.
-
-# ENux 2.0
-
-Welcome to ENux 2.0 a Debian-based Linux distribution with Bedrock Linux on top
 
 
 ## What is ENux?
 
-ENux 2.0 is a Debian based distribution with Bedrock Linux on top, to be able to use:
+ENux 2.1 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
 
 - apk (Alpine)
 - xbps-install (Void)
-- dnf / rpm (Fedora/Red Hat)
+- dnf / rpm (Fedora / Red Hat)
 - emerge (Gentoo)
 - pacman (Arch)
 - dpkg / apt (Debian)
 - pmm (Package Manager Manager)
 
-**Conflict resolution:** Bedrock Linux handles most compatibility headaches. For beginners, pmm simplifies package management into one easy tool.
+**Conflict resolution:**  
+Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simplifies package management into one easy-to-use tool.
+
+---
 
 ## Features
 
-- Debian base for stability  
-- Bedrock Linux integration for cross-distro package support  
-- Unified enux package manager for beginners  
-- Lightweight XFCE desktop for performance
+- Debian base for stability and reliability  
+- Bedrock Linux integration during installation  
+- Access to multiple package managers on one system  
+- Unified **pmm** tool for simplified package management  
+- Lightweight **XFCE** desktop for performance  
+- Clean, minimal, and beginner-friendly setup  
 
-## Difference between ENux 1.0 and ENux 2.0
+---
 
-ENux 1.0 used to be a 3 step installer, you run Calamares, then ENux Finaliser Phase 1, then ENux Finaliser Phase 2.
-But on ENux 2.0, Calamares wget's Bedrock Linux and installs (*--hijacks* it), and there is only a single Finaliser which *brl fetch*es the stratas
+## Difference Between ENux 1.0, 2.0, and 2.1
+
+### ENux 1.0
+- Multi-step installation process  
+- Required running Calamares, then **ENux Finaliser Phase 1**, then **Finaliser Phase 2**  
+- Bedrock Linux installed after the base system  
+
+### ENux 2.0
+- Bedrock Linux is downloaded and installed directly during Calamares using `wget` and `--hijack`  
+- Installation reduced to a single main step  
+- Only one Finaliser is required to **brl fetch** the stratas  
+
+### ENux 2.1
+- ENux Finaliser now runs automatically as a **first-boot script**  
+- Keeping the **.desktop shortcut** to manually access the Finaliser  
+- Bug fixes and improvements to the Finaliser  
+- Improved system branding and metadata  
+- Overall installation flow is smoother and more polished  
+
+---
 
 ## Hardware Requirements
 
 **Minimum:**
-- CPU: 64-bit processor
-- RAM: 3 GB
-- Storage: 20 GB
+- CPU: 64-bit processor  
+- RAM: 3 GB  
+- Storage: 30 GB  
 
 **Recommended:**
-- CPU: Dual-core
-- RAM: 5 GB
-- Storage: 33 GB
+- CPU: Dual-core  
+- RAM: 5 GB  
+- Storage: 45 GB  
 
 **High-end:**
-- CPU: Quad-core
-- RAM: 8+ GB
-- Storage: 50+ GB
+- CPU: Quad-core  
+- RAM: 8+ GB  
+- Storage: 55+ GB  
 
 ---
-
 ## Installation Guide
 
-1. Download the ENux 1.0 ISO from:  
-   - [ENux-2.0.iso](http://www.emirpasha.com/ENux-2.0.iso)
-   - [ENux-2.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-2.0.iso/download)
+1. Download the ENux 2.1 ISO:
+   - [ENux-2.1.iso](http://www.emirpasha.com/ENux-2.1.iso)
+   - [ENux-2.1.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-2.1.iso/download)
 
-2. Flash the ISO to a USB drive using tools like **Rufus** or **Balena Etcher**.
+2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
-3. Boot from the USB and run the **ENux Installer**.
+3. Boot from the USB drive and run the **ENux Installer (Calamares)**.
 
-4. After reboot, run **ENux Finaliser** to **brl fetch** the stratas
+4. After installation and reboot:
+   - The **ENux Finaliser** will run automatically on first boot  
+   - Alternatively, it can be launched manually using the desktop shortcut  
 
----
 
 ## Troubleshooting
 
 If you encounter issues:
 - Visit [r/ENux on Reddit](https://www.reddit.com/r/ENux/)  
-- Ask questions, share feedback, or discuss ENux with the community.
+- Ask questions, report bugs, or share feedback with the community
 

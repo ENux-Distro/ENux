@@ -86,6 +86,20 @@ Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simpl
    - Alternatively, it can be launched manually using the desktop shortcut  
 
 
+## Known Behavior (Finaliser Mirroring)
+
+During the ENux Finaliser, Bedrock Linux strata are fetched from external mirrors.
+
+In rare cases, strata fetching may fail due to:
+- Temporary mirror outages
+- Slow or unstable internet connections
+- Regional mirror availability issues
+
+If this happens, you can try **brl fetch**ing the **strata** again with different mirrors
+No system reinstallation is required.
+
+Once the strata are fetched successfully, ENux is fully ready to use.
+
 ## Troubleshooting
 
 If you encounter issues:

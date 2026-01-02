@@ -1,8 +1,17 @@
 # Note: ENux 2.1 Releasing Today the Patch Notes Are:
-ENux Finaliser is now a first boot script! When you boot, it will ask you if you installed your system with Calamares or not. Write "n" if you are on the live iso, write "y" if you are on the
-installed system. If you accidentally write "y" on the live system, it won't work. Because brl isn't active. If you type "n" on the installed system, don't worry. We still
-kept the .desktop shortcut
-Fixed ENux Finalizer not deleting the .desktop shortcut
+ENux Finaliser is now a first-boot script!
+
+   On boot, it will ask if you installed your system with Calamares.
+
+   Type “n” if you’re on the live ISO.
+
+   Type “y” if you’re on an installed system.
+
+Accidentally type “y” on the live system? No worries, it won’t work because BRL isn’t active.
+
+Type “n” on the installed system? Don’t worry, the .desktop shortcut is still there.
+
+Fixed: ENux Finaliser not deleting the .desktop shortcut.
 
 # ENux 2.0
 

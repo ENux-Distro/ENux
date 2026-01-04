@@ -1,5 +1,5 @@
-## NOTE: ENux 3.0 Will Release Today. The Patch Notes Are:
-# ENux has added support for Opensuse, and Centos. But we have removed Fedora, because ENux uses Fedora 41, and it is almost EOL
+# NOTE: ENux 3.0 Will Release Today. The Patch Notes Are:
+## ENux has added support for Opensuse, and Centos. But we have removed Fedora, because ENux uses Fedora 41, and it is almost EOL
 
 
 # ENux 2.1

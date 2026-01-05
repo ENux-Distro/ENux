@@ -1,23 +1,20 @@
-# NOTE: ENux 3.0 Will Release Today. The Patch Notes Are:
-## ENux has added support for Opensuse, and Centos. But we have removed Fedora, because ENux uses Fedora 41, and it is almost EOL
+# ENux 3.0
 
-
-# ENux 2.1
-
-Welcome to **ENux 2.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 3.0**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 
 ## What is ENux?
 
-ENux 2.1 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
+ENux 3.0 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
 
+- dpkg / apt (Debian)
 - apk (Alpine)
-- xbps-install (Void)
-- dnf / rpm (Fedora / Red Hat)
+- xbps (Void)
+- dnf / rpm (CentOS / Red Hat) **(New)**
+- zypper (openSUSE) **(New)**
 - emerge (Gentoo)
 - pacman (Arch)
-- dpkg / apt (Debian)
 - pmm (Package Manager Manager)
 
 **Conflict resolution:**  
@@ -36,7 +33,7 @@ Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simpl
 
 ---
 
-## Difference Between ENux 1.0, 2.0, and 2.1
+## Difference Between ENux 1.0, 2.0, 2.1 and 3.0
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -53,14 +50,20 @@ Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simpl
 - Keeping the **.desktop shortcut** to manually access the Finaliser  
 - Bug fixes and improvements to the Finaliser  
 - Improved system branding and metadata  
-- Overall installation flow is smoother and more polished  
+- Overall installation flow is smoother and more polished
+
+### ENux 3.0
+ - Added support for Centos 10-stream, giving you a more stable and long term dnf support
+ - Added openSuse Tumbleweed support, now you can use zypper too.
+ - Removed Fedora, because ENux used to use Fedora 41 and it is almost EOL
+ - The Finalizer isn't a hybrid first-boot script with a .desktop shortcut. It is returned to old fashioned .desktop shortcut installation.
 
 ---
 
 ## Hardware Requirements
 
 **Minimum:**
-- CPU: 64-bit processor  
+- CPU: x86_64-v2 (Required for Centos fetch) 
 - RAM: 3 GB  
 - Storage: 30 GB  
 
@@ -77,17 +80,15 @@ Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simpl
 ---
 ## Installation Guide
 
-1. Download the ENux 2.1 ISO:
-   - [ENux-2.1.iso](http://www.emirpasha.com/ENux-2.1.iso)
-   - [ENux-2.1.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-2.1.iso/download)
+1. Download the ENux 3.0 ISO:
+   - [ENux-3.0.iso](http://www.emirpasha.com/ENux-3.0.iso)
+   - [ENux-3.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-3.0.iso/download)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
 3. Boot from the USB drive and run the **ENux Installer (Calamares)**.
 
-4. After installation and reboot:
-   - The **ENux Finaliser** will run automatically on first boot  
-   - Alternatively, it can be launched manually using the desktop shortcut  
+4. After installation and reboot, run **ENux Finaliser** from the .desktop shortcut.
 
 
 ## Known Behavior (Finaliser Mirroring)

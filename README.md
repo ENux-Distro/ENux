@@ -1,25 +1,26 @@
-# ENux 3.0
+# ENux 4.0
 
-Welcome to **ENux 3.0**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 4.0**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 
 ## What is ENux?
 
-ENux 3.0 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
+ENux 4.0 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
 
 - dpkg / apt (Debian)
 - apk (Alpine)
 - xbps (Void)
-- dnf / rpm (CentOS / Red Hat) **(New)**
-- zypper (openSUSE) **(New)**
+- dnf / rpm (CentOS / Red Hat)
+- zypper (openSUSE)
 - emerge (Gentoo)
 - pacman (Arch)
 - pmm (Package Manager Manager)
+- nix (NixOS) **(New)**
 
 **Conflict resolution:**  
 Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simplifies package management into one easy-to-use tool.
-
+Note: nix isn't a part of brl/pmm, it is independent
 ---
 
 ## Features
@@ -58,6 +59,11 @@ Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simpl
  - Removed Fedora, because ENux used to use Fedora 41 and it is almost EOL
  - The Finalizer isn't a hybrid first-boot script with a .desktop shortcut. It is returned to old fashioned .desktop shortcut installation.
 
+### ENux 4.0
+ - Added support for NixOS's nix package manager
+ - Changed the live username from "enux" to "ENux", making the username look more polished
+ - Changed the live hostname from "enux" to "ENux-Live-System", making the user feel more like in a live system
+ - Now using Cinnamon's Lightdm, giving you a simpler, less flashy experience
 ---
 
 ## Hardware Requirements
@@ -81,8 +87,8 @@ Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simpl
 ## Installation Guide
 
 1. Download the ENux 3.0 ISO:
-   - [ENux-3.0.iso](http://www.emirpasha.com/ENux-3.0.iso)
-   - [ENux-3.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-3.0.iso/download)
+   - [ENux-4.0.iso](http://www.emirpasha.com/ENux-4.0.iso)
+   - [ENux-4.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-4.0.iso/download)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 

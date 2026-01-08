@@ -34,7 +34,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 
 ---
 
-## Difference Between ENux 1.0, 2.0, 2.1 and 3.0
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0
 
 ### ENux 1.0
 - Multi-step installation process  

@@ -92,7 +92,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 ---
 ## Installation Guide
 
-1. Download the ENux 3.0 ISO:
+1. Download the ENux 4.5 ISO:
    - [ENux-4.5.iso](http://www.emirpasha.com/ENux-4.5.iso)
    - [ENux-4.5.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-4.5.iso/download)
 

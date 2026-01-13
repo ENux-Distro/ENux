@@ -13,7 +13,7 @@ ENux 4.5 is a Debian-based distribution with Bedrock Linux on top, allowing you 
 - xbps (Void)
 - dnf / rpm (CentOS / Red Hat)
 - zypper (openSUSE)
-- emerge/portrage (Gentoo)
+- emerge / portrage (Gentoo)
 - pacman (Arch)
 - pmm (Package Manager Manager)
 - nix (NixOS) **(New)**

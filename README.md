@@ -117,10 +117,10 @@ No system reinstallation is required.
 
 Once the strata are fetched successfully, ENux is fully ready to use.
 
-##Dev Notes
+## Dev Notes
 
-The username on the live system is `ENux`
-The password on the live system is `enux`
+- The username on the live system is `ENux`
+- The password on the live system is `enux`
 
 ## Troubleshooting
 

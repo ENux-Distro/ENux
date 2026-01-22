@@ -75,7 +75,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 ## Hardware Requirements
 
 **Minimum:**
-- CPU: x86_64-v2 (Required for Centos fetch) 
+- CPU: x86_64-v2 (Required for CentOS fetch) 
 - RAM: 3 GB  
 - Storage: 30 GB  
 
@@ -103,7 +103,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 4. After installation and reboot, run **ENux Finaliser** from the .desktop shortcut.
 
 
-## Known Behavior (Finaliser Mirroring)
+## Known Behavior (Finalizer Mirroring)
 
 During the ENux Finaliser, Bedrock Linux strata are fetched from external mirrors.
 
@@ -116,6 +116,11 @@ If this happens, you can try **brl fetch**ing the **strata** again with differen
 No system reinstallation is required.
 
 Once the strata are fetched successfully, ENux is fully ready to use.
+
+##Dev Notes
+
+The username on the live system is `ENux`
+The password on the live system is `enux`
 
 ## Troubleshooting
 

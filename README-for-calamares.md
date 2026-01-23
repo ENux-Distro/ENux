@@ -8,5 +8,5 @@ Calamares ENux Installer, is where Bedrock Linux get's installed via the **--hij
 In order to install Calamares ENux Installer, do these:
 
 - Grab the .deb file from [here](https://github.com/ENux-Distro/ENux/raw/refs/heads/main/calamares-settings-enux.deb)
-- install it via **dpkg --install **/path/to/calamares-settings-enux**
+- install it via **dpkg --install** **/path/to/calamares-settings-enux**
 - Enjoy

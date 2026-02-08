@@ -1,18 +1,11 @@
-## NOTE: ENux 5.0 is releasing today, here are the patch notes: 
- - Created a first boot CLI welcomer called **ENux Welcomer**, that installs some packages, gives information about ENux, has the ENux Finalizer built into it, and it let's you test a package manager (Void Linux's xbps to be more clear)
- - Removed **ENux Finalizer**, since it is injected on the first boot welcomer
- - Fixed minor bugs on **Calamares**, **enuxfetch**, and **config.jsonc** for **enuxfetch**
+# ENux 5.0
 
-
-# ENux 4.5
-
-Welcome to **ENux 4.5**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
-
+Welcome to **ENux 5.0**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 ## What is ENux?
 
-ENux 4.5 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
+ENux 5.0 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
 
 - dpkg / apt (Debian)
 - apk (Alpine)
@@ -22,7 +15,7 @@ ENux 4.5 is a Debian-based distribution with Bedrock Linux on top, allowing you 
 - emerge / portrage (Gentoo)
 - pacman (Arch)
 - pmm (Package Manager Manager)
-- nix (NixOS) **(New)**
+- nix (NixOS)
 
 **Conflict resolution:**  
 Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simplifies package management into one easy-to-use tool.
@@ -34,14 +27,15 @@ Note: nix isn't a part of brl/pmm, it is independent
 - Debian base for stability and reliability  
 - Bedrock Linux integration during installation  
 - Access to multiple package managers on one system  
-- Unified **pmm** tool for simplified package management  
+- Unified **pmm** tool for simplified package management
+- A nice ENux Welcome CLI program
 - Lightweight **XFCE** desktop for performance  
 - Clean, minimal, and beginner-friendly setup
 - Our own Linux 6.18.5-enux kernel, ensuring you got the latest stable kernel. **(New)**
 
 ---
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0 and 4.5
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5 and 5.0
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -75,7 +69,14 @@ Note: nix isn't a part of brl/pmm, it is independent
 ### ENux 4.5
  - Switched from Debian's 6.12.57-deb13+amd64 kernel, to 6.18.5-enux kernel
  - The kernel experience will stay the same
- - The overall user experience got more polished 
+ - The overall user experience got more polished
+
+### ENux 5.0
+ - Created an **ENux Welcomer** first boot CLI script, that installs recommended packages, tells you what ENux is, brl fetches + adds nix and let's you test a package manager (xbps)
+ - Replaced **ENux Finalizer** with **ENux Welcomer**
+ - Fixed some minor bugs from **Calamares**, **enuxfetch** and **config.jsonc** for **enuxfetch**
+ - Using zstd compression instead of xz for faster boot speeds
+
 ---
 
 ## Hardware Requirements
@@ -99,19 +100,19 @@ Note: nix isn't a part of brl/pmm, it is independent
 ## Installation Guide
 
 1. Download the ENux 4.5 ISO:
-   - [ENux-4.5.iso](http://www.emirpasha.com/ENux-4.5.iso)
-   - [ENux-4.5.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-4.5.iso/download)
+   - [ENux-5.0.iso](http://www.emirpasha.com/ENux-5.0.iso)
+   - [ENux-5.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-5.0.iso/download)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
 3. Boot from the USB drive and run the **ENux Installer (Calamares)**.
 
-4. After installation and reboot, run **ENux Finaliser** from the .desktop shortcut.
+4. After installation and reboot, and the **ENux Welcomer** will welcome you
 
 
-## Known Behavior (Finalizer Mirroring)
+## Known Behavior (ENux Welcomer Mirroring)
 
-During the ENux Finaliser, Bedrock Linux strata are fetched from external mirrors.
+During the ENux Welcomer, Bedrock Linux strata(s) are fetched from external mirrors.
 
 In rare cases, strata fetching may fail due to:
 - Temporary mirror outages

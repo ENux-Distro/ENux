@@ -1,3 +1,9 @@
+## NOTE: ENux 5.0 is releasing today, here are the patch notes: 
+ - Created a first boot CLI welcomer called **ENux Welcomer**, that installs some packages, gives information about ENux, has the ENux Finalizer built into it, and it let's you test a package manager (Void Linux's xbps to be more clear)
+ - Removed **ENux Finalizer**, since it is injected on the first boot welcomer
+ - Fixed minor bugs on **Calamares**, **enuxfetch**, and **config.jsonc** for **enuxfetch**
+
+
 # ENux 4.5
 
 Welcome to **ENux 4.5**, a Debian-based Linux distribution with **Bedrock Linux integrated**.

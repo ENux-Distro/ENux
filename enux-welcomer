@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# ENux First Boot Experience
+# Runs once per user
+
+AUTOSTART="$HOME/.config/autostart/enux-firstboot.desktop"
+FLAG="$HOME/.config/enux-firstboot-done"
+
+if [ -f "$FLAG" ]; then
+  exit 0
+fi
+
+clear
+echo "======================================="
+echo "            Welcome to ENux"
+echo "======================================="
+echo
+echo "This short setup will help you get started."
+echo "It will only run once."
+echo
+sleep 2
+
+RECOMMENDED_PKGS="git curl wget htop"
+
+echo "Recommended packages:"
+echo "  $RECOMMENDED_PKGS"
+echo
+read -p "Extra packages to install (space-separated, or press Enter to skip): " USER_PKGS
+
+ALL_PKGS="$RECOMMENDED_PKGS $USER_PKGS"
+
+if [ -n "$ALL_PKGS" ]; then
+  echo
+  echo "Installing packages using apt..."
+  sudo apt update
+  sudo apt install -y $ALL_PKGS
+fi
+
+clear
+echo "======================================="
+echo "             What is ENux?"
+echo "======================================="
+echo
+echo "ENux is a Debian based Linux distro"
+echo "with Bedrock Linux on top."
+echo
+echo "It allows you to safely use software from"
+echo "multiple Linux distributions using one"
+echo "unified package manager: pmm."
+echo
+echo "You don't worry about where a package"
+echo "comes from, ENux handles that for you."
+echo
+sleep 7
+
+echo
+echo "Brl Fetching the Package Managers"
+echo "This may take a few minutes."
+echo
+
+sudo brl fetch alpine --mirror https://dl-cdn.alpinelinux.org/alpine/ || true
+sudo brl fetch void --mirror https://repo-default.voidlinux.org || true
+sudo brl fetch arch --mirror https://fastly.mirror.pkgbuild.com/ || true
+sudo brl fetch centos || true
+sudo brl fetch gentoo --mirror https://gentoo.osuosl.org/ || true
+sudo brl fetch opensuse || true
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
+
+echo
+read -p "Do you want to test a package manager? (y/n): " TEST_PM
+
+if [ "$TEST_PM" = "y" ] || [ "$TEST_PM" = "Y" ]; then
+  echo
+  echo "Example: installing htop from Void Linux using xbps"
+  echo
+  sudo xbps-install htop
+fi
+
+echo
+echo "======================================="
+echo "      You are all set. Enjoy ENux"
+echo "======================================="
+echo
+echo
+sleep 2
+
+sudo rm -rf /usr/bin/enux-firstboot
+sudo rm -rf "$AUTOSTART"
+
+mkdir -p "$HOME/.config"
+touch "$FLAG"
+
+exit 0
+

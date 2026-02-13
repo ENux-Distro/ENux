@@ -31,7 +31,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 - A nice ENux Welcome CLI program
 - Lightweight **XFCE** desktop for performance  
 - Clean, minimal, and beginner-friendly setup
-- Our own Linux 6.18.5-enux kernel, ensuring you got the latest stable kernel. **(New)**
+- Our own Linux 6.18.5-enux kernel, ensuring you got the latest stable kernel.
 
 ---
 

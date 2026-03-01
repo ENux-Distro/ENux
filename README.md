@@ -1,11 +1,11 @@
-# ENux 5.0
+# ENux 5.0.1
 
-Welcome to **ENux 5.0**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 5.0.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 ## What is ENux?
 
-ENux 5.0 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
+ENux 5.0.1 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
 
 - dpkg / apt (Debian)
 - apk (Alpine)
@@ -18,7 +18,7 @@ ENux 5.0 is a Debian-based distribution with Bedrock Linux on top, allowing you 
 - nix (NixOS)
 
 **Conflict resolution:**  
-Bedrock Linux handles most compatibility headaches. For beginners, **pmm** simplifies package management into one easy-to-use tool.
+Bedrock Linux handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
 Note: nix isn't a part of brl/pmm, it is independent
 ---
 
@@ -77,6 +77,11 @@ Note: nix isn't a part of brl/pmm, it is independent
  - Fixed some minor bugs from **Calamares**, **enuxfetch** and **config.jsonc** for **enuxfetch**
  - Using zstd compression instead of xz for faster boot speeds
 
+### ENux 5.0.1
+  - Introducing the ENux Package Manager, a nice tool that uses "pmm" as for the backend
+  - Improved the visuals on the terminal 
+
+
 ---
 
 ## Hardware Requirements
@@ -99,9 +104,9 @@ Note: nix isn't a part of brl/pmm, it is independent
 ---
 ## Installation Guide
 
-1. Download the ENux 4.5 ISO:
-   - [ENux-5.0.iso](http://www.emirpasha.com/ENux-5.0.iso)
-   - [ENux-5.0.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-5.0.iso/download)
+1. Download the ENux 5.0.1 ISO:
+   - [ENux-5.0.1.iso](http://www.emirpasha.com/ENux-5.0.1.iso)
+   - [ENux-5.0.1.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-5.0.1.iso/download)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 

@@ -85,7 +85,7 @@ Note: nix isn't a part of brl/pmm, it is independent
   - Improved the visuals on the terminal 
 
 ### ENux 5.1.1
-  - ENux 5.1.1 is the first ever linux distro that has Bedrock Linux pre-installed
+  - ENux 5.1.1 is the first ever Linux distribution that has Bedrock Linux pre-installed
   - This version was created with our own tools such as the ENux ISO Creator, that uses ENuxbootstrap, and other tools on the backend
   - ENux 5.1.1 also replaced Calamares, with our own installer, which is both avaible on CLI and TUI
   - The ISO size is only 1.04 GB, compared to 5 GB on ENux 5.0.1

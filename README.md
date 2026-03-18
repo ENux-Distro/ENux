@@ -1,20 +1,22 @@
-# ENux 5.0.1
+# ENux 5.1.1
 
-Welcome to **ENux 5.0.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 5.1.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 ## What is ENux?
 
-ENux 5.0.1 is a Debian-based distribution with Bedrock Linux on top, allowing you to use multiple mainstream Linux package managers on a single system:
+ENux 5.1.1 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+
+This configuration allows you to use multiple mainstream Linux package managers on a single system:
 
 - dpkg / apt (Debian)
 - apk (Alpine)
 - xbps (Void)
-- dnf / rpm (CentOS / Red Hat)
+- dnf / rpm (Fedora / Red Hat) **(New)**
 - zypper (openSUSE)
 - emerge / portrage (Gentoo)
 - pacman (Arch)
-- pmm (Package Manager Manager)
+- enux (Package Manager Manager)
 - nix (NixOS)
 
 **Conflict resolution:**  
@@ -25,17 +27,18 @@ Note: nix isn't a part of brl/pmm, it is independent
 ## Features
 
 - Debian base for stability and reliability  
-- Bedrock Linux integration during installation  
+- Bedrock Linux pre-installed
 - Access to multiple package managers on one system  
-- Unified **pmm** tool for simplified package management
+- Unified **enux** tool for simplified package management
 - A nice ENux Welcome CLI program
 - Lightweight **XFCE** desktop for performance  
 - Clean, minimal, and beginner-friendly setup
-- Our own Linux 6.18.5-enux kernel, ensuring you got the latest stable kernel.
+- Our own Linux 7.0-rc2-enux-enux kernel, ensuring you got the latest bleeding edge hardware and firmware support
+- Created with our own ISO Creator tool
 
 ---
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5 and 5.0
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0 and 5.1.1
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -81,6 +84,15 @@ Note: nix isn't a part of brl/pmm, it is independent
   - Introducing the ENux Package Manager, a nice tool that uses "pmm" as for the backend
   - Improved the visuals on the terminal 
 
+### ENux 5.1.1
+  - ENux 5.1.1 is the first ever linux distro that has Bedrock Linux pre-installed
+  - This version was created with our own tools such as the ENux ISO Creator, that uses ENuxbootstrap, and other tools on the backend
+  - ENux 5.1.1 also replaced Calamares, with our own installer, which is both avaible on CLI and TUI
+  - The ISO size is only 1.04 GB, compared to 5 GB on ENux 5.0.1
+  - ENux 5.1.1 now uses Linux kernel 7.0-rc2-enux-enux, ensuring you have the latest hardware and firmware support
+  - We've switched from CentOS to Fedora, ensuring you have the latest and cutting-edge software support
+  - Fixed minor bugs on the ENux Package Manager
+  - Fixed minor bugs on branding 
 
 ---
 
@@ -88,25 +100,26 @@ Note: nix isn't a part of brl/pmm, it is independent
 
 **Minimum:**
 - CPU: x86_64-v2 (Required for CentOS fetch) 
-- RAM: 3 GB  
-- Storage: 30 GB  
+- RAM: 550 MB  
+- Storage: 25 GB  
 
 **Recommended:**
 - CPU: Dual-core  
-- RAM: 5 GB  
-- Storage: 45 GB  
+- RAM: 800 MB  
+- Storage: 35 GB  
 
 **High-end:**
 - CPU: Quad-core  
-- RAM: 8+ GB  
-- Storage: 55+ GB  
+- RAM: 1 GB  
+- Storage: 45+ GB  
 
 ---
 ## Installation Guide
 
-1. Download the ENux 5.0.1 ISO:
-   - [ENux-5.0.1.iso](http://www.emirpasha.com/ENux-5.0.1.iso)
-   - [ENux-5.0.1.iso (Alternative)](https://sourceforge.net/projects/enux/files/ENux-5.0.1.iso/download)
+1. Download the ENux 5.1.1 ISO:
+   - [ENux-5.1.1.iso](http://www.emirpasha.com/ENux-5.1.1.iso)
+   - [ENux-5.1.1.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
+   - [ENux-5.1.1.iso (GitHub)]([https://sourceforge.net/projects/enux/files/latest/download](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.1.1/ENux-5.1.1.iso))
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
@@ -115,7 +128,9 @@ Note: nix isn't a part of brl/pmm, it is independent
 4. After installation and reboot, and the **ENux Welcomer** will welcome you
 
 
-## Known Behavior (ENux Welcomer Mirroring)
+## Known Behaviors
+
+### ENux Welcomer Mirroring
 
 During the ENux Welcomer, Bedrock Linux strata(s) are fetched from external mirrors.
 
@@ -128,6 +143,16 @@ If this happens, you can try **brl fetch**ing the **strata** again with differen
 No system reinstallation is required.
 
 Once the strata are fetched successfully, ENux is fully ready to use.
+
+### LightDM Not Appearing After Installation
+
+In rare cases of ENux Installation, LightDM couldn't be fully setup.
+Therefore after installation, you may be on the TTY terminal.
+
+In order to get to **XFCE**, you must run
+ - **startx**
+
+after you log in
 
 ## Dev Notes
 

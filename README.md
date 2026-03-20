@@ -154,6 +154,31 @@ In order to get to **XFCE**, you must run
 
 after you log in
 
+### WiFi Not Working Out of the Box
+
+When you first boot into ENux, you'll see that there is no WiFi on ENux. 
+In order to get WiFi, do these steps:
+
+- You need internet to do the steps below, so temporarily stream your phone's internet via USB tethering.
+Don't worry, with USB tethering you can stream your phone's WiFi.
+- Then, we need to see if the kernel see's your WiFi card. Open up the terminal and type `lspci -nnk | grep -iA 3 net`
+If it says "Kernel driver in use", your hardware is recognized, but the network service isn't running.
+If it says "Kernel modules" but no "driver in use", you are missing the firmware.
+- First, install the firmware by running `sudo apt install linux-firmware firmware-linux-nonfree firmware-[output of lsspci -nnk | grep -iA 3 net (for example iwlwifi)]
+Warning, you may need to add `non-free` and `non-free-firmware` to your `/etc/apt/sources.list`
+- After installing the firmwares, enable Network Manager by running `sudo systemctl enable --now NetworkManager`
+- We recommend you also run `sudo modprobe -r [output of lsspci -nnk | grep -iA 3 net (for example iwlwifi)] && sudo modprobe [output of lsspci -nnk | grep -iA 3 net (for example iwlwifi)]` to load the kernel modules
+- Once that's all done, run `ip a`, if you see `wlan(...)` then your WiFi is initiliazed
+- To connect to your WiFi Network, run `nmtui` and go to `Activate a Connection`. Select your WiFi router, and enter its password.
+- After connecting to the network, sanity check if its running or not by running `ping emirpasha.com`. If you see something like:
+
+PING www.emirpasha.com (2606:4700:3033::6815:50c3) 56 data bytes
+
+64 bytes from 2606:4700:3033::6815:50c3: icmp_seq=1 ttl=59 time=4.27 ms
+
+it means your WiFi is working.
+
+
 ## Dev Notes
 
 - The username on the live system is `ENux`

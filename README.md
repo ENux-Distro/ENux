@@ -1,18 +1,18 @@
-# ENux 5.1.1
+# ENux 5.2.1
 
-Welcome to **ENux 5.1.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 5.2.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 ## What is ENux?
 
-ENux 5.1.1 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+ENux 5.2.1 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
 
 This configuration allows you to use multiple mainstream Linux package managers on a single system:
 
 - dpkg / apt (Debian)
 - apk (Alpine)
 - xbps (Void)
-- dnf / rpm (Fedora / Red Hat) **(New)**
+- dnf / rpm (Fedora / Red Hat)
 - zypper (openSUSE)
 - emerge / portrage (Gentoo)
 - pacman (Arch)
@@ -38,7 +38,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 
 ---
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0 and 5.1.1
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1 and 5.2.1
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -93,6 +93,12 @@ Note: nix isn't a part of brl/pmm, it is independent
   - We've switched from CentOS to Fedora, ensuring you have the latest and cutting-edge software support
   - Fixed minor bugs on the ENux Package Manager
   - Fixed minor bugs on branding 
+
+### ENux 5.2.1 
+   - Thank you all for 1000 downloads for Sourceforge. In honor to that, we've released ENux 5.2.1.
+   - ENux 5.2.1 has easier networking with support for "plug and play" WiFi, and has Firefox pre-installed.
+   - Switched from 7.0-rc2-enux-enux to 7.0-rc4-enux-enux kernel, for more hardware and firmware support.
+   - Improved the ENux Installer and ENux Welcomer
 
 ---
 

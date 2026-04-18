@@ -130,7 +130,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 1. Download the ENux 5.1.1 ISO:
    - [ENux-5.3.1.iso](http://www.emirpasha.com/ENux-5.3.1.iso)
    - [ENux-5.3.1.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
-   - [ENux-5.3.1.iso (GitHub)]([https://sourceforge.net/projects/enux/files/latest/download](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.1/ENux-5.1.1.iso))
+   - [ENux-5.3.1.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.1/ENux-5.1.1.iso))
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 

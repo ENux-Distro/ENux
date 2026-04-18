@@ -1,11 +1,11 @@
-# ENux 5.2.1
+# ENux 5.3.1
 
-Welcome to **ENux 5.2.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 5.3.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 ## What is ENux?
 
-ENux 5.2.1 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+ENux 5.3.1 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
 
 This configuration allows you to use multiple mainstream Linux package managers on a single system:
 
@@ -38,7 +38,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 
 ---
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1 and 5.2.1
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 and 5.3.1
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -100,6 +100,11 @@ Note: nix isn't a part of brl/pmm, it is independent
    - Switched from 7.0-rc2-enux-enux to 7.0-rc4-enux-enux kernel, for more hardware and firmware support.
    - Improved the ENux Installer and ENux Welcomer
 
+### ENux 5.3.1 
+   - Fixed a major bug on the ENux Installer.
+   - Welcome Linux 7.0. To celebrate the release of Linux 7.0 Stable, ENux has switched from Linux kernel 7.0.0-rc4-enux-enux to 7.0.0-enux kernel 
+
+
 ---
 
 ## Hardware Requirements
@@ -123,13 +128,13 @@ Note: nix isn't a part of brl/pmm, it is independent
 ## Installation Guide
 
 1. Download the ENux 5.1.1 ISO:
-   - [ENux-5.1.1.iso](http://www.emirpasha.com/ENux-5.1.1.iso)
-   - [ENux-5.1.1.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
-   - [ENux-5.1.1.iso (GitHub)]([https://sourceforge.net/projects/enux/files/latest/download](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.1.1/ENux-5.1.1.iso))
+   - [ENux-5.3.1.iso](http://www.emirpasha.com/ENux-5.3.1.iso)
+   - [ENux-5.3.1.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
+   - [ENux-5.3.1.iso (GitHub)]([https://sourceforge.net/projects/enux/files/latest/download](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.1/ENux-5.1.1.iso))
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
-3. Boot from the USB drive and run the **ENux Installer (Calamares)**.
+3. Boot from the USB drive and run the **ENux Installer (CLI/TUI)**.
 
 4. After installation and reboot, and the **ENux Welcomer** will welcome you
 

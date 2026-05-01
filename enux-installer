@@ -1,0 +1,195 @@
+#!/bin/bash
+# The CLI Installer for ENux
+set -e
+
+[ "$EUID" -ne 0 ] && echo "Run as root." && exit 1
+
+check_internet() {
+    ping -c 1 -W 1 deb.debian.org >/dev/null 2>&1 || return 1
+}
+
+if check_internet; then
+    clear
+else
+    echo "You need internet for the ENux Installer"
+    echo "When you have internet, please run the installer"
+    sleep 3
+    exit 1
+fi
+
+umount -l /mnt/ENux || true
+clear
+echo "================================="
+echo "        ENux CLI Installer       "
+echo "================================="
+echo
+
+read -p "Press Enter to start installation..."
+
+echo
+lsblk
+echo
+read -p "Enter the drive to install ENux on (example: /dev/sda): " DRIVE
+
+echo
+echo "Opening cfdisk..."
+sleep 2
+cfdisk $DRIVE
+
+while true; do
+    read -p "Return to cfdisk? (y/n): " CF
+    case $CF in
+        y|Y ) cfdisk $DRIVE ;;
+        n|N ) break ;;
+        * ) echo "Please answer y or n." ;;
+    esac
+done
+
+echo
+lsblk
+echo
+
+read -p "Enter ROOT partition (example: /dev/sda2): " ROOT
+
+read -p "Create swap? (y/n): " SWAPCHOICE
+if [[ "$SWAPCHOICE" =~ ^[Yy]$ ]]; then
+    read -p "Enter SWAP partition (example: /dev/sda3): " SWAP
+fi
+
+echo
+read -p "WARNING: This will erase $ROOT. Continue? (yes/no): " CONF
+[[ "$CONF" != "yes" ]] && exit 1
+
+echo
+echo "Formatting root partition..."
+mkfs.ext4 $ROOT
+
+if [[ "$SWAPCHOICE" =~ ^[Yy]$ ]]; then
+    echo "Formatting swap..."
+    mkswap $SWAP
+    swapon $SWAP
+fi
+
+echo
+echo "Mounting root partition..."
+mkdir -p /mnt/ENux
+mount $ROOT /mnt/ENux
+
+apt install -y arch-install-scripts
+
+echo
+echo "Bootstrapping ENux..."
+
+enuxbootstrap /mnt/ENux
+echo
+echo "Installing base packages..."
+cp /etc/apt/sources.list /mnt/ENux/etc/apt/sources.list
+
+enux-chroot /mnt/ENux apt update
+enux-chroot /mnt/ENux apt install -y \
+network-manager \
+sudo \
+wget \
+curl \
+xfce4 \
+xfce4-goodies \
+lightdm \
+lightdm-gtk-greeter \
+initramfs-tools firefox-esr firmware-iwlwifi firmware-realtek
+
+cp /etc/os-release /mnt/ENux/etc/os-release
+cp /etc/issue /mnt/ENux/etc/issue
+cp /etc/motd /mnt/ENux/etc/motd
+cp /usr/bin/enux-firstboot /mnt/ENux/usr/bin/enux-firstboot
+
+echo
+echo "Setting hostname..."
+read -p "Enter hostname: " HOSTNAME
+echo "$HOSTNAME" > /mnt/ENux/etc/hostname
+
+echo "127.0.0.1 localhost" >> /mnt/ENux/etc/hosts
+echo "127.0.1.1 $HOSTNAME" >> /mnt/ENux/etc/hosts
+
+echo
+echo "Creating user..."
+read -p "Enter username: " USERNAME
+
+enux-chroot /mnt/ENux useradd -m -G sudo,audio,video,netdev -s /bin/bash $USERNAME
+
+echo "Set password for $USERNAME"
+enux-chroot /mnt/ENux passwd $USERNAME
+
+mkdir -p /mnt/ENux/home/"$USERNAME"/.config/autostart || true
+cp /usr/share/enux/enux-firstboot.desktop /mnt/ENux/home/"$USERNAME"/.config/autostart/enux-firstboot.desktop || true
+mkdir -p /mnt/home/"$USERNAME"/.config/fastfetch || true
+cp /usr/share/enux/config.jsonc /mnt/home/"$USERNAME"/.config/fastfetch || true
+enux-chroot /mnt/ENux chown -R "$USERNAME:$USERNAME" /home/"$USERNAME"/.config || true
+
+echo "Set root password"
+enux-chroot /mnt/ENux passwd
+
+echo
+echo "Detecting firmware..."
+
+if [ -d /sys/firmware/efi ]; then
+    echo "EFI system detected"
+    lsblk
+    read -p "Enter EFI partition (example: /dev/sda1): " EFI
+
+    mkfs.fat -F32 $EFI || true
+    mkdir -p /mnt/ENux/boot/efi
+    mount $EFI /mnt/ENux/boot/efi
+    enux-chroot /mnt/ENux apt install grub-efi-amd64 grub-common -y
+    enux-chroot /mnt/ENux grub-install \
+        --target=x86_64-efi \
+        --efi-directory=/boot/efi \
+        --bootloader-id=ENux --removable
+
+else
+    echo "Legacy BIOS detected"
+    enux-chroot /mnt/ENux apt install grub-pc grub-common -y
+    enux-chroot /mnt/ENux grub-install $DRIVE
+fi
+
+echo
+
+genfstab -U /mnt/ENux > /mnt/ENux/etc/fstab
+
+echo "Updating initramfs"
+enux-chroot /mnt/ENux update-initramfs -c -k all
+
+echo
+echo "Generating GRUB config..."
+enux-chroot /mnt/ENux grub-mkconfig -o /boot/grub/grub.cfg
+
+echo
+echo "Running ENux Bedrock setup..."
+enux-chroot /mnt/ENux wget https://raw.githubusercontent.com/ENux-Distro/mirrors/refs/heads/main/enux-chroot -O /usr/local/bin/enux-chrooted
+enux-chroot /mnt/ENux bash /usr/local/bin/enux-chrooted
+
+echo
+echo "Enabling services..."
+enux-chroot /mnt/ENux systemctl enable NetworkManager
+enux-chroot /mnt/ENux systemctl enable lightdm
+enux-chroot /mnt/ENux rm -rf /usr/share/images/desktop-base
+enux-chroot /mnt/ENux rm -rf /usr/local/bin/enux-chrooted
+
+echo
+echo "Syncing disks..."
+sync
+
+echo
+echo "Unmounting system..."
+umount -R /mnt/ENux
+
+echo
+echo "================================="
+echo "       ENux installation done    "
+echo "================================="
+
+read -p "Reboot now? (y/n): " RB
+if [[ "$RB" =~ ^[Yy]$ ]]; then
+    reboot
+else
+    echo "Installation finished. Reboot manually when ready."
+fi

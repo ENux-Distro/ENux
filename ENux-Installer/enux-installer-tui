@@ -1,0 +1,208 @@
+#!/bin/bash
+# The TUI Installer for ENux
+set -e
+
+[ "$EUID" -ne 0 ] && echo "Run as root." && exit 1
+
+check_internet() {
+    ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || return 1
+    return 0
+}
+
+if check_internet; then
+    clear
+else
+    echo "You need internet for the ENux Installer"
+    echo "When you have internet, please run the installer"
+    sleep 3
+    exit 1
+fi
+
+
+umount -l /mnt/ENux || true
+
+TITLE="ENux Installer"
+
+pause(){
+    whiptail --title "$TITLE" --msgbox "$1" 10 60
+}
+
+INPUT(){
+    whiptail --title "$TITLE" --inputbox "$1" 10 60 "$2" 3>&1 1>&2 2>&3
+}
+
+YESNO(){
+    whiptail --title "$TITLE" --yesno "$1" 10 60
+}
+
+pause "Welcome to the ENux Installer"
+
+pause "Available drives on this system"
+
+lsblk -d -o NAME,SIZE,MODEL,TYPE > /tmp/enux-disks
+whiptail --title "$TITLE - Drives" --textbox /tmp/enux-disks 20 70
+
+DRIVE=$(INPUT "Enter the drive to install ENux on (example: /dev/sda)")
+
+pause "Opening partition editor"
+
+cfdisk "$DRIVE"
+
+while YESNO "Return to cfdisk?"; do
+    cfdisk "$DRIVE"
+done
+
+pause "Current partitions on $DRIVE"
+
+lsblk "$DRIVE" > /tmp/enux-parts
+whiptail --title "$TITLE - Partitions" --textbox /tmp/enux-parts 20 70
+
+ROOT=$(INPUT "Enter ROOT partition (example: /dev/sda2)")
+
+if YESNO "Create swap?"; then
+
+    pause "Available partitions for swap"
+
+    lsblk "$DRIVE" > /tmp/enux-swap
+    whiptail --title "$TITLE - Partitions" --textbox /tmp/enux-swap 20 70
+
+    SWAP=$(INPUT "Enter SWAP partition (example: /dev/sda3)")
+    USE_SWAP=true
+else
+    USE_SWAP=false
+fi
+
+if ! YESNO "WARNING: This will erase $ROOT. Continue?"; then
+    exit 1
+fi
+
+pause "Formatting root partition..."
+
+mkfs.ext4 "$ROOT"
+
+if $USE_SWAP; then
+    mkswap "$SWAP"
+    swapon "$SWAP"
+fi
+
+pause "Mounting system..."
+
+mkdir -p /mnt/ENux
+mount "$ROOT" /mnt/ENux
+
+apt install -y arch-install-scripts
+
+pause "Bootstrapping ENux..."
+
+enuxbootstrap /mnt/ENux
+cp /etc/apt/sources.list /mnt/ENux/etc/apt/sources.list
+pause "Installing base packages..."
+
+enux-chroot /mnt/ENux apt update
+enux-chroot /mnt/ENux apt install -y \
+network-manager \
+sudo \
+wget \
+curl \
+xfce4 \
+xfce4-goodies \
+lightdm \
+lightdm-gtk-greeter \
+initramfs-tools firefox-esr firmware-iwlwifi  firmware-realtek
+
+cp /etc/os-release /mnt/ENux/etc/os-release
+cp /usr/bin/enux-firstboot /mnt/ENux/usr/bin/enux-firstboot
+cp /etc/motd /mnt/ENux/etc/motd
+cp /usr/bin/enux-firstboot /mnt/ENux/usr/bin/enux-firstboot
+
+HOSTNAME=$(INPUT "Enter hostname")
+
+echo "$HOSTNAME" > /mnt/ENux/etc/hostname
+echo "127.0.0.1 localhost" >> /mnt/ENux/etc/hosts
+echo "127.0.1.1 $HOSTNAME" >> /mnt/ENux/etc/hosts
+
+USERNAME=$(INPUT "Enter username")
+
+enux-chroot /mnt/ENux useradd -m -G sudo,audio,video,netdev -s /bin/bash "$USERNAME"
+
+pause "Set password for $USERNAME"
+enux-chroot /mnt/ENux passwd "$USERNAME"
+
+mkdir -p /mnt/ENux/home/"$USERNAME"/.config/autostart || true
+cp /usr/share/enux/enux-firstboot.desktop \
+/mnt/ENux/home/"$USERNAME"/.config/autostart/enux-firstboot.desktop || true
+
+enux-chroot /mnt/ENux chown -R "$USERNAME:$USERNAME" \
+/home/"$USERNAME"/.config || true
+
+pause "Set root password"
+enux-chroot /mnt/ENux passwd
+
+pause "Detecting firmware..."
+
+if [ -d /sys/firmware/efi ]; then
+
+    pause "Available partitions for EFI"
+
+    lsblk "$DRIVE" > /tmp/enux-efi
+    whiptail --title "$TITLE - EFI Partitions" --textbox /tmp/enux-efi 20 70
+
+    EFI=$(INPUT "Enter EFI partition (example: /dev/sda1)")
+
+    mkfs.fat -F32 "$EFI" || true
+    mkdir -p /mnt/ENux/boot/efi
+    mount "$EFI" /mnt/ENux/boot/efi
+
+    enux-chroot /mnt/ENux apt install -y grub-efi-amd64 grub-common
+
+    enux-chroot /mnt/ENux grub-install \
+        --target=x86_64-efi \
+        --efi-directory=/boot/efi \
+        --bootloader-id=ENux --removable
+
+else
+
+    enux-chroot /mnt/ENux apt install -y grub-pc grub-common
+    enux-chroot /mnt/ENux grub-install "$DRIVE"
+
+fi
+
+pause "Generating fstab..."
+
+genfstab -U /mnt/ENux > /mnt/ENux/etc/fstab
+
+pause "Updating initramfs..."
+
+enux-chroot /mnt/ENux update-initramfs -c -k all
+
+pause "Generating GRUB config..."
+
+enux-chroot /mnt/ENux grub-mkconfig -o /boot/grub/grub.cfg
+
+pause "Running ENux Bedrock setup..."
+
+enux-chroot /mnt/ENux wget \
+https://raw.githubusercontent.com/ENux-Distro/mirrors/refs/heads/main/enux-chroot \
+-O /usr/local/bin/enux-chrooted
+
+enux-chroot /mnt/ENux bash /usr/local/bin/enux-chrooted
+
+pause "Enabling services..."
+
+enux-chroot /mnt/ENux systemctl enable NetworkManager
+enux-chroot /mnt/ENux systemctl enable lightdm
+
+enux-chroot /mnt/ENux rm -rf /usr/share/images/desktop-base
+enux-chroot /mnt/ENux rm -rf /usr/local/bin/enux-chrooted
+
+pause "Syncing disks..."
+
+sync
+
+pause "Unmounting system..."
+
+umount -R /mnt/ENux
+
+if YESNO "Installation finished. Reboot now?"; then
+    reboot
+fi

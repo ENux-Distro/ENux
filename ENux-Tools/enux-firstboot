@@ -3,12 +3,29 @@
 # ENux First Boot Experience
 # Runs once per user
 
-AUTOSTART="$HOME/.config/autostart/enux-firstboot.desktop"
-FLAG="$HOME/.config/enux-firstboot-done"
+AUTOSTART_FILE="$HOME/.config/autostart/enux-firstboot.desktop"
+FLAG="$HOME/.config/autostart/enux-firstboot-done"
 
 if [ -f "$FLAG" ]; then
   exit 0
 fi
+
+check_internet() {
+    ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || return 1
+    return 0
+}
+
+if check_internet; then
+    clear
+else
+    echo "You need internet for the ENux Welcomer"
+    echo "When you have internet, please reboot your computer, or run 'enux-firstboot' on the terminal"
+    sleep 3
+    exit 1
+fi
+
+
+mkdir -p "$HOME/.config/autostart"
 
 clear
 echo "======================================="
@@ -20,7 +37,7 @@ echo "It will only run once."
 echo
 sleep 2
 
-RECOMMENDED_PKGS="git curl wget htop"
+RECOMMENDED_PKGS="git alsa-utils pavucontrol gcc g++"
 
 echo "Recommended packages:"
 echo "  $RECOMMENDED_PKGS"
@@ -41,30 +58,42 @@ echo "======================================="
 echo "             What is ENux?"
 echo "======================================="
 echo
-echo "ENux is a Debian based Linux distro"
+echo "ENux is a Debian based Linux distribution"
 echo "with Bedrock Linux on top."
+echo
+echo "It is also the first ever Linux distribution"
+echo "to have support for Bedrock Linux on the"
+echo "live environment"
 echo
 echo "It allows you to safely use software from"
 echo "multiple Linux distributions using one"
-echo "unified package manager: pmm."
+echo "unified package manager: enux."
 echo
 echo "You don't worry about where a package"
 echo "comes from, ENux handles that for you."
 echo
-sleep 7
+sleep 9
 
+
+echo "Downloading the ENux Tools Suite"
+sleep 1
+sudo wget https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools/enux -O /usr/bin/enux && sudo chmod +x /usr/bin/enux
+sudo wget https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools/enux-chroot -O /usr/bin/enux-chroot && sudo chmod +x /usr/bin/enux-chroot
+sudo wget https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools/enuxbootstrap -O /usr/bin/enuxbootstrap && sudo chmod +x /usr/bin/enuxbootstrap
 echo
 echo "Brl Fetching the Package Managers"
 echo "This may take a few minutes."
+sleep 2
 echo
 
 sudo brl fetch alpine --mirror https://dl-cdn.alpinelinux.org/alpine/ || true
 sudo brl fetch void --mirror https://repo-default.voidlinux.org || true
-sudo brl fetch arch --mirror https://fastly.mirror.pkgbuild.com/ || true
-sudo brl fetch centos || true
+sudo brl fetch arch --mirror http://mirrors.edge.kernel.org/archlinux || true
+sudo brl fetch fedora --mirror https://mirrors.nxthost.com/fedora/ || true
 sudo brl fetch gentoo --mirror https://gentoo.osuosl.org/ || true
 sudo brl fetch opensuse || true
-sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
+yes | sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
+
 
 echo
 read -p "Do you want to test a package manager? (y/n): " TEST_PM
@@ -75,6 +104,67 @@ if [ "$TEST_PM" = "y" ] || [ "$TEST_PM" = "Y" ]; then
   echo
   sudo xbps-install htop
 fi
+
+clear
+echo "=============================="
+echo "       What is WingAI"
+echo "=============================="
+echo
+echo "WingAI is an Meta-AI designed for programmers"
+echo "Who want to use powerful models at the same time"
+echo
+echo "WingAI combines Gemini, Qwen and Nemotron AI's respones with our"
+echo "---Response Packager---"
+echo
+sleep 6
+
+
+read -p "Do you want to install WingAI? (y/n): " WING_AI
+
+if [ "$WING_AI" = "y" ] || [ "$WING_AI" = "Y" ]; then
+  echo
+  wget https://github.com/ENux-Distro/WingAI/releases/download/WingAI-0.3.0/WingAI-0.3.0.deb
+  sudo dpkg -i WingAI-0.3.0.deb
+  rm -f WingAI-0.3.0.deb
+  echo
+fi
+
+clear
+echo "==================================="
+echo "          What is ENux-AI"
+echo "==================================="
+echo
+echo "ENux-AI is an AI tool built to help you with ENux"
+echo "from your machine locally"
+echo "It uses Qwen 2.5 7B as it's base, because it has"
+echo "incredible reasoning, incredible understanding,"
+echo "and is lightweight"
+echo
+echo "Let's say you have a problem while installing"
+echo "you can ask ENux-AI on how to fix it"
+echo
+echo "You can either run ENux-AI on your terminal"
+echo "or from your browser (as localhost)"
+echo
+echo "WARNING: In order to use ENux-AI, you need"
+echo "Atleast 8 GB of RAM and a 4 core CPU"
+sleep 6
+
+
+read -p "Do you want to install ENux-AI? (y/n): " ENux_AI
+
+if [ "$ENUX_AI" = "y" ] || [ "$ENUX_AI" = "Y" ]; then
+  echo "Warning, this may take a while"
+  echo "So sit back and relax, as ENux Welcomer installs ENux-AI"
+  echo
+  wget https://github.com/ENux-Distro/ENux-AI/releases/download/ENux-AI-1.0/ENux-AI-1.0.tar.zst
+  tar xf ENux-AI-1.0.tar.zst
+  cd ENux-AI
+  make
+  cd ..
+  echo
+fi
+
 
 echo
 echo "======================================="

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# ENux Package Manager
+PMM="/bedrock/bin/pmm"
+
+case "$1" in
+  "" )
+    echo "ENux Package Manager"
+    echo "Use the --about flag for more information"
+    ;;
+
+  --about )
+    echo
+    echo "ENux Package Manager"
+    echo "Simple Commands:"
+    echo "install - Installs your desired package"
+    echo "remove - Removes your desired package"
+    echo "update - Updates the system"
+    echo "upgrade - Upgrades the system"
+    echo
+    echo "                             ENux Package Manager has super-crow powers"
+    exit 0
+    ;;
+
+  # Commands that DO NOT require sudo
+  search|show|list )
+    "$PMM" "$@"
+    ;;
+
+  # Commands that DO require sudo
+  install|remove|purge|update|upgrade|full-upgrade|autoremove )
+    sudo "$PMM" "$@"
+    ;;
+
+  * )
+    sudo "$APT" "$@"
+    ;;
+esac

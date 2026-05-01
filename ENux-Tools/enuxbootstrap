@@ -1,0 +1,58 @@
+#!/bin/bash
+# Usage: sudo enuxbootstrap /path/to/target
+
+set -e
+IFS=$'\n\t'
+
+TARGET="$1"
+
+if [ -z "$TARGET" ]; then
+    echo "Usage: $0 /path/to/target"
+    exit 1
+fi
+
+if [ ! -d "$TARGET" ]; then
+    echo "Creating target directory $TARGET …"
+    sudo mkdir -p "$TARGET"
+fi
+
+echo "Starting ENuxbootstrap on $TARGET …"
+
+# Debootstrap
+sudo apt install debootstrap -y
+sudo debootstrap stable "$TARGET" http://deb.debian.org/debian
+
+# Mount virtual filesystems
+echo "Mounting virtual filesystems …"
+sudo mount --bind /proc "$TARGET/proc"
+sudo mount --bind /sys "$TARGET/sys"
+sudo mount --bind /dev "$TARGET/dev"
+sudo cp /etc/resolv.conf "$TARGET/etc/resolv.conf"
+
+# Download DEBs safely
+sudo wget -O "$TARGET/linux-headers-7.0.0-enux_7.0.0-3_amd64.deb" \
+    https://github.com/ENux-Distro/ENux-Kernels/releases/download/7.0/linux-headers-7.0.0-enux_7.0.0-3_amd64.deb
+
+sudo wget -O "$TARGET/linux-image-7.0.0-enux_7.0.0-3_amd64.deb" \
+    https://github.com/ENux-Distro/ENux-Kernels/releases/download/7.0/linux-image-7.0.0-enux_7.0.0-3_amd64.deb
+
+# Install kernel inside chroot
+sudo chroot "$TARGET" /bin/bash -c "\
+    apt update; \
+    apt install -y /linux-headers-7.0.0-enux_7.0.0-3_amd64.deb /linux-image-7.0.0-enux_7.0.0-3_amd64.deb || apt install -f -y \
+"
+
+# Download enux-chroot helper
+sudo wget -O "$TARGET/usr/bin/enux-chroot" \
+    https://raw.githubusercontent.com/ENux-Distro/mirrors/main/enux-chroot
+sudo chmod +x "$TARGET/usr/bin/enux-chroot"
+
+# Clean up DEBs inside target
+sudo rm -f "$TARGET"/linux-*.deb
+
+# Unmount virtual filesystems safely
+sudo umount -l "$TARGET/proc" || true
+sudo umount -l "$TARGET/sys" || true
+sudo umount -l "$TARGET/dev" || true
+
+echo "ENuxbootstrap is done!"

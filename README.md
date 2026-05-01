@@ -104,6 +104,22 @@ Note: nix isn't a part of brl/pmm, it is independent
    - Fixed a major bug on the ENux Installer.
    - Welcome Linux 7.0. To celebrate the release of Linux 7.0 Stable, ENux has switched from Linux kernel 7.0.0-rc4-enux-enux to 7.0.0-enux kernel 
 
+## Historic Versions of ENux
+
+### ENux Pre-Prototype 1.0
+   - The goal was to make Arch Linux more beginner friendly with KDE Plasma, and ***Audio-Relay*** support with a nice README
+   - The ISO image has never been created
+
+### ENux Prototype 1.0
+   - ENux's goal switched from beginner friendly Arch Linux to Debian with Bedrock Linux and 7 package managers
+   - This version was my Debian system with Bedrock Linux and a few stratas.
+   - The ISO image has never been created, but a showcase video exists on [here](https://www.youtube.com/watch?v=J61vbt4_iEY&t=9s)
+   - **Warning:** Don't use the ENux Showcase video to learn more about ENux.
+
+## ENux Beta 1.0
+   - The first initial release of ENux
+   - It was a tar archive containing 2 scripts
+   - Technically the lightest version of ENux
 
 ---
 

@@ -116,7 +116,7 @@ Note: nix isn't a part of brl/pmm, it is independent
    - The ISO image has never been created, but a showcase video exists on [here](https://www.youtube.com/watch?v=J61vbt4_iEY&t=9s)
    - **Warning:** Don't use the ENux Showcase video to learn more about ENux.
 
-## ENux Beta 1.0
+### ENux Beta 1.0
    - The first initial release of ENux
    - It was a tar archive containing 2 scripts
    - Technically the lightest version of ENux

@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+CHROOT_DIR="$1"
+shift || true
+
+if [ -z "$CHROOT_DIR" ]; then
+    echo "Usage: sudo $0 /path/to/chroot [command]"
+    exit 1
+fi
+
+if [ ! -d "$CHROOT_DIR" ]; then
+    echo "Error: $CHROOT_DIR does not exist."
+    exit 1
+fi
+
+echo "Mounting virtual filesystems for $CHROOT_DIR …"
+
+# Mount /proc, /sys, /dev, /run, /dev/pts
+sudo mount --bind /proc "$CHROOT_DIR/proc"
+sudo mount --bind /sys "$CHROOT_DIR/sys"
+sudo mount --bind /dev "$CHROOT_DIR/dev"
+sudo mount --bind /run "$CHROOT_DIR/run"
+sudo mount --bind /dev/pts "$CHROOT_DIR/dev/pts"
+
+# Trap to clean up mounts when script exits
+cleanup() {
+    echo "Unmounting virtual filesystems …"
+    sudo umount -l "$CHROOT_DIR/proc" || true
+    sudo umount -l "$CHROOT_DIR/sys" || true
+    sudo umount -l "$CHROOT_DIR/dev/pts" || true
+    sudo umount -l "$CHROOT_DIR/dev" || true
+    sudo umount -l "$CHROOT_DIR/run" || true
+}
+trap cleanup EXIT
+
+# Run chroot
+if [ $# -eq 0 ]; then
+    sudo chroot "$CHROOT_DIR" /bin/bash
+else
+    sudo chroot "$CHROOT_DIR" "$@"
+fi

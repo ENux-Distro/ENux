@@ -1,11 +1,11 @@
-# ENux 5.3.1
+# ENux 5.3.2
 
-Welcome to **ENux 5.3.1**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 5.3.2**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
 
 
 ## What is ENux?
 
-ENux 5.3.1 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+ENux 5.3.2 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
 
 This configuration allows you to use multiple mainstream Linux package managers on a single system:
 
@@ -17,11 +17,12 @@ This configuration allows you to use multiple mainstream Linux package managers 
 - emerge / portrage (Gentoo)
 - pacman (Arch)
 - enux (Package Manager Manager)
+- epkg (EPkgOS **New**) 
 - nix (NixOS)
 
-**Conflict resolution:**  
+**Conflict resolution:**
 Bedrock Linux handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
-Note: nix isn't a part of brl/pmm, it is independent
+Note: nix and epkg isn't a part of brl/pmm, it is independent
 ---
 
 ## Features
@@ -38,7 +39,7 @@ Note: nix isn't a part of brl/pmm, it is independent
 
 ---
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 and 5.3.1
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 and 5.3.2
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -102,7 +103,12 @@ Note: nix isn't a part of brl/pmm, it is independent
 
 ### ENux 5.3.1 
    - Fixed a major bug on the ENux Installer.
-   - Welcome Linux 7.0. To celebrate the release of Linux 7.0 Stable, ENux has switched from Linux kernel 7.0.0-rc4-enux-enux to 7.0.0-enux kernel 
+   - Welcome Linux 7.0. To celebrate the release of Linux 7.0 Stable, ENux has switched from Linux kernel 7.0.0-rc4-enux-enux to 7.0.0-enux kernel
+
+### ENux 5.3.2
+   - Added EPkgOS's epkg
+   - Improved the ENux Welcomer
+   - Fixed a major bug for UEFI systems 
 
 ## Historic Versions of ENux
 
@@ -143,10 +149,10 @@ Note: nix isn't a part of brl/pmm, it is independent
 ---
 ## Installation Guide
 
-1. Download the ENux 5.1.1 ISO:
-   - [ENux-5.3.1.iso](http://www.emirpasha.com/ENux-5.3.1.iso)
-   - [ENux-5.3.1.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
-   - [ENux-5.3.1.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.1/ENux-5.1.1.iso)
+1. Download the ENux 5.3.2 ISO:
+   - [ENux-5.3.2.iso](http://www.emirpasha.com/ENux-5.3.2.iso)
+   - [ENux-5.3.2.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
+   - [ENux-5.3.2.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.2/ENux-5.3.2.iso)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 

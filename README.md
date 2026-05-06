@@ -34,7 +34,7 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 - A nice ENux Welcome CLI program
 - Lightweight **XFCE** desktop for performance  
 - Clean, minimal, and beginner-friendly setup
-- Our own Linux 7.0-rc2-enux-enux kernel, ensuring you got the latest bleeding edge hardware and firmware support
+- Our own Linux 7.0.0-enux kernel, ensuring you got the latest bleeding edge hardware and firmware support
 - Created with our own ISO Creator tool
 
 ---

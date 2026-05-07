@@ -59,8 +59,8 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 - Overall installation flow is smoother and more polished
 
 ### ENux 3.0
- - Added support for Centos 10-stream, giving you a more stable and long term dnf support
- - Added openSuse Tumbleweed support, now you can use zypper too.
+ - Added support for CentOS 10-stream, giving you a more stable and long term dnf support
+ - Added openSUSE Tumbleweed support, now you can use zypper too.
  - Removed Fedora, because ENux used to use Fedora 41 and it is almost EOL
  - The Finalizer isn't a hybrid first-boot script with a .desktop shortcut. It is returned to old fashioned .desktop shortcut installation.
 

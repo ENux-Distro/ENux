@@ -1,6 +1,6 @@
 # ENux 5.3.2
 
-Welcome to **ENux 5.3.2**, a Debian-based Linux distribution with **Bedrock Linux integrated**.
+Welcome to **ENux 5.3.2**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
 
 
 ## What is ENux?

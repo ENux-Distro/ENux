@@ -121,7 +121,9 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 ### ENux 5.3.2
    - Added EPkgOS's epkg
    - Improved the ENux Welcomer
-   - Fixed a major bug for UEFI systems 
+   - Fixed a major bug for UEFI systems
+
+   - Thank you everyone for the Rising Star award on Sourceforge. In honour to that, I'd like to introduce ENux Netinst. ENux Netinst is a lightweight non-GUI ISO with TUI installation support over the network with smaller ISO size and a more direct installation procces.
 
 ## Historic Versions of ENux
 

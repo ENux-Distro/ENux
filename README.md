@@ -39,6 +39,19 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 
 ---
 
+## Difference Between ENux Versions
+
+### ENux Live
+- Has Bedrock Linux pre-installed, and has support for using Bedrock Linux commands on the live environment
+- Pretty minimal (~1.2 GB), has XFCE pre-installed
+- Is recommended for intermediates who want a desktop environment on the live environment, and aren't scared of the terminal
+
+### ENux Netinst
+- Has Bedrock Linux pre-installed, but doesn't have support for using Bedrock Linux commands on the live environment
+- There is no GUI, only CLI/TTY
+- The installation requires you to have really stable networking
+- Is recommended for people who doesn't want any GUI on their system, and prefer network installers
+
 ## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 and 5.3.2
 
 ### ENux 1.0
@@ -147,9 +160,9 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 - Storage: 45+ GB  
 
 ---
-## Installation Guide
+## Installation Guide for ENux Live
 
-1. Download the ENux 5.3.2 ISO:
+1. Download ENux Live from
    - [ENux-5.3.2.iso](http://www.emirpasha.com/ENux-5.3.2.iso)
    - [ENux-5.3.2.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/latest/download)
    - [ENux-5.3.2.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.2/ENux-5.3.2.iso)
@@ -160,6 +173,18 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 
 4. After installation and reboot, and the **ENux Welcomer** will welcome you
 
+## Installation Guide for ENux Netinst
+
+1. Download ENux Netinst from
+   - [ENux-Netinst-5.3.2.iso](http://www.emirpasha.com/ENux-Netinst-5.3.2.iso)
+   - [ENux-Netinst-5.3.2.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.3.2/ENux-Netinst-5.3.2.iso/download)
+   - [ENux-Netinst-5.3.2.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-Netinst-5.3.2/ENux-Netinst-5.3.2.iso)
+
+2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
+
+3. Boot from the USB drive and select **Install ENux** on the bootloader
+
+4. After installation and reboot, and the **ENux Welcomer** will welcome you
 
 ## Known Behaviors
 

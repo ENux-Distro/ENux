@@ -17,7 +17,7 @@ This configuration allows you to use multiple mainstream Linux package managers 
 - emerge / portrage (Gentoo)
 - pacman (Arch)
 - enux (Package Manager Manager)
-- epkg (EPkgOS **New**) 
+- epkg (EPkgOS) 
 - nix (NixOS)
 
 **Conflict resolution:**

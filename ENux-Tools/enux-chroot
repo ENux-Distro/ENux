@@ -1,4 +1,5 @@
 #!/bin/bash
+# ENux Chroot Utility
 set -e
 
 CHROOT_DIR="$1"

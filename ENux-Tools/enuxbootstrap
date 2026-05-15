@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: sudo enuxbootstrap /path/to/target
+# ENux Bootstrapper Utility
 
 set -e
 IFS=$'\n\t'

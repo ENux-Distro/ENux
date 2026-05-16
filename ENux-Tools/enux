@@ -16,8 +16,10 @@ case "$1" in
     echo "remove - Removes your desired package"
     echo "update - Updates the system"
     echo "upgrade - Upgrades the system"
-    echo
-    echo "                             ENux Package Manager has super-crow powers"
+    if [[ "$(id -u)" == 0 ]]; then
+      echo ""
+      echo "                             ENux Package Manager has super-crow powers"
+    fi 
     exit 0
     ;;
 

@@ -1,28 +1,60 @@
 #!/bin/bash
 # The CLI Installer for ENux
-set -e
+set -eE
 
-[ "$EUID" -ne 0 ] && echo "Run as root." && exit 1
+LOG_DIR="/var/enux"
+LOG_FILE="$LOG_DIR/enux-installer.log"
+
+mkdir -p "$LOG_DIR"
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+}
+
+die() {
+    local cause="${1:-Unknown error}"
+    echo
+    echo "================================="
+    echo "      ENux Installer Error       "
+    echo "  Cause: $cause"
+    echo "================================="
+    echo
+    log "FATAL: $cause"
+    log "See full log at: $LOG_FILE"
+    read -rp "Press Enter to exit..."
+    exit 1
+}
+
+trap 'die "Unexpected failure at line $LINENO (command: $BASH_COMMAND)"' ERR
+
+log "ENux installer started"
+
+# Suppress all interactive debconf/dpkg prompts (keyboard config, tzdata, etc.)
+export DEBIAN_FRONTEND=noninteractive
+echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+[ "$EUID" -ne 0 ] && die "Installer must be run as root"
 
 check_internet() {
-    ping -c 1 -W 1 deb.debian.org >/dev/null 2>&1 || return 1
+    ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1 || return 1
 }
 
 if check_internet; then
+    log "Internet connectivity confirmed"
     clear
 else
-    echo "You need internet for the ENux Installer"
-    echo "When you have internet, please run the installer"
-    sleep 3
-    exit 1
+    die "No internet connection. Connect to the internet and re-run the installer"
 fi
 
-umount -l /mnt/ENux || true
+umount -l /mnt/ENux 2>/dev/null || true
+
 clear
 echo "================================="
 echo "        ENux CLI Installer       "
 echo "================================="
 echo
+log "Installer UI started"
 
 read -p "Press Enter to start installation..."
 
@@ -30,16 +62,23 @@ echo
 lsblk
 echo
 read -p "Enter the drive to install ENux on (example: /dev/sda): " DRIVE
+log "Target drive selected: $DRIVE"
 
+[ -b "$DRIVE" ] || die "Drive '$DRIVE' does not exist or is not a block device"
+
+log "Opening cfdisk on $DRIVE"
 echo
 echo "Opening cfdisk..."
 sleep 2
-cfdisk $DRIVE
+setsid cfdisk "$DRIVE" </dev/tty >/dev/tty 2>/dev/tty || die "cfdisk exited with an error on $DRIVE"
 
 while true; do
     read -p "Return to cfdisk? (y/n): " CF
     case $CF in
-        y|Y ) cfdisk $DRIVE ;;
+        y|Y )
+            log "User returned to cfdisk"
+            setsid cfdisk "$DRIVE" </dev/tty >/dev/tty 2>/dev/tty || die "cfdisk exited with an error on $DRIVE"
+            ;;
         n|N ) break ;;
         * ) echo "Please answer y or n." ;;
     esac
@@ -50,145 +89,211 @@ lsblk
 echo
 
 read -p "Enter ROOT partition (example: /dev/sda2): " ROOT
+log "Root partition selected: $ROOT"
+[ -b "$ROOT" ] || die "Root partition '$ROOT' does not exist or is not a block device"
 
 read -p "Create swap? (y/n): " SWAPCHOICE
 if [[ "$SWAPCHOICE" =~ ^[Yy]$ ]]; then
     read -p "Enter SWAP partition (example: /dev/sda3): " SWAP
+    log "Swap partition selected: $SWAP"
+    [ -b "$SWAP" ] || die "Swap partition '$SWAP' does not exist or is not a block device"
 fi
 
 echo
 read -p "WARNING: This will erase $ROOT. Continue? (yes/no): " CONF
-[[ "$CONF" != "yes" ]] && exit 1
+[[ "$CONF" == "yes" ]] || { log "User aborted at confirmation prompt"; exit 0; }
+log "User confirmed destructive operation on $ROOT"
 
 echo
+log "Formatting root partition $ROOT as ext4"
 echo "Formatting root partition..."
-mkfs.ext4 $ROOT
+mkfs.ext4 "$ROOT" || die "Failed to format $ROOT as ext4"
 
 if [[ "$SWAPCHOICE" =~ ^[Yy]$ ]]; then
+    log "Formatting and activating swap on $SWAP"
     echo "Formatting swap..."
-    mkswap $SWAP
-    swapon $SWAP
+    mkswap "$SWAP"  || die "Failed to format swap partition $SWAP"
+    swapon "$SWAP"  || die "Failed to activate swap on $SWAP"
 fi
 
 echo
+log "Mounting $ROOT at /mnt/ENux"
 echo "Mounting root partition..."
 mkdir -p /mnt/ENux
-mount $ROOT /mnt/ENux
+mount "$ROOT" /mnt/ENux || die "Failed to mount $ROOT at /mnt/ENux"
 
-apt install -y arch-install-scripts
+log "Installing arch-install-scripts"
+apt install -y arch-install-scripts || die "Failed to install arch-install-scripts"
 
 echo
+log "Bootstrapping ENux base system"
 echo "Bootstrapping ENux..."
+enuxbootstrap /mnt/ENux || die "enuxbootstrap failed — check network or mirror availability"
 
-enuxbootstrap /mnt/ENux
 echo
+log "Copying sources.list and installing base packages"
 echo "Installing base packages..."
-cp /etc/apt/sources.list /mnt/ENux/etc/apt/sources.list
+cp /etc/apt/sources.list /mnt/ENux/etc/apt/sources.list \
+    || die "Failed to copy apt sources.list into chroot"
 
-enux-chroot /mnt/ENux apt update
+enux-chroot /mnt/ENux apt update \
+    || die "apt update failed inside chroot"
+
+enux-chroot /mnt/ENux apt install -y debconf \
+    || die "Failed to install debconf inside chroot"
+enux-chroot /mnt/ENux bash -c "echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections" \
+    || die "Failed to set debconf frontend inside chroot"
+
 enux-chroot /mnt/ENux apt install -y \
-network-manager \
-sudo \
-wget \
-curl \
-xfce4 \
-xfce4-goodies \
-lightdm \
-lightdm-gtk-greeter \
-initramfs-tools firefox-esr firmware-iwlwifi firmware-realtek
+    network-manager \
+    sudo \
+    wget \
+    curl \
+    xfce4 \
+    xfce4-goodies \
+    lightdm \
+    lightdm-gtk-greeter \
+    initramfs-tools \
+    firefox-esr \
+    firmware-iwlwifi \
+    firmware-realtek \
+    || die "Failed to install one or more base packages — check mirror connectivity"
 
-cp /etc/os-release /mnt/ENux/etc/os-release
-cp /etc/issue /mnt/ENux/etc/issue
-cp /etc/motd /mnt/ENux/etc/motd
-cp /usr/bin/enux-firstboot /mnt/ENux/usr/bin/enux-firstboot
+log "Copying OS identity files into chroot"
+for f in /etc/os-release /etc/issue /etc/motd; do
+    cp "$f" /mnt/ENux"$f" || die "Failed to copy $f into chroot"
+done
+cp /usr/bin/enux-firstboot /mnt/ENux/usr/bin/enux-firstboot \
+    || die "Failed to copy enux-firstboot into chroot"
 
 echo
 echo "Setting hostname..."
 read -p "Enter hostname: " HOSTNAME
-echo "$HOSTNAME" > /mnt/ENux/etc/hostname
-
-echo "127.0.0.1 localhost" >> /mnt/ENux/etc/hosts
-echo "127.0.1.1 $HOSTNAME" >> /mnt/ENux/etc/hosts
+log "Hostname set to: $HOSTNAME"
+echo "$HOSTNAME" > /mnt/ENux/etc/hostname || die "Failed to write hostname"
+{
+    echo "127.0.0.1 localhost"
+    echo "127.0.1.1 $HOSTNAME"
+} >> /mnt/ENux/etc/hosts || die "Failed to write /etc/hosts"
 
 echo
 echo "Creating user..."
 read -p "Enter username: " USERNAME
+log "Creating user: $USERNAME"
 
-enux-chroot /mnt/ENux useradd -m -G sudo,audio,video,netdev -s /bin/bash $USERNAME
+enux-chroot /mnt/ENux useradd -m -G sudo,audio,video,netdev -s /bin/bash "$USERNAME" \
+    || die "Failed to create user '$USERNAME'"
 
 echo "Set password for $USERNAME"
-enux-chroot /mnt/ENux passwd $USERNAME
+enux-chroot /mnt/ENux passwd "$USERNAME" \
+    || die "Failed to set password for '$USERNAME'"
 
+log "Setting up autostart and fastfetch config for $USERNAME"
 mkdir -p /mnt/ENux/home/"$USERNAME"/.config/autostart || true
-cp /usr/share/enux/enux-firstboot.desktop /mnt/ENux/home/"$USERNAME"/.config/autostart/enux-firstboot.desktop || true
+cp /usr/share/enux/enux-firstboot.desktop \
+   /mnt/ENux/home/"$USERNAME"/.config/autostart/enux-firstboot.desktop 2>/dev/null || true
 mkdir -p /mnt/home/"$USERNAME"/.config/fastfetch || true
-cp /usr/share/enux/config.jsonc /mnt/home/"$USERNAME"/.config/fastfetch || true
+cp /usr/share/enux/config.jsonc \
+   /mnt/home/"$USERNAME"/.config/fastfetch 2>/dev/null || true
 enux-chroot /mnt/ENux chown -R "$USERNAME:$USERNAME" /home/"$USERNAME"/.config || true
 
 echo "Set root password"
-enux-chroot /mnt/ENux passwd
+enux-chroot /mnt/ENux passwd \
+    || die "Failed to set root password"
 
 echo
+log "Detecting firmware type"
 echo "Detecting firmware..."
 
 if [ -d /sys/firmware/efi ]; then
+    log "EFI system detected"
     echo "EFI system detected"
     lsblk
     read -p "Enter EFI partition (example: /dev/sda1): " EFI
+    log "EFI partition selected: $EFI"
+    [ -b "$EFI" ] || die "EFI partition '$EFI' does not exist or is not a block device"
 
-    mkfs.fat -F32 $EFI || true
+    mkfs.fat -F32 "$EFI" 2>/dev/null || true
     mkdir -p /mnt/ENux/boot/efi
-    mount $EFI /mnt/ENux/boot/efi
-    enux-chroot /mnt/ENux apt install grub-efi-amd64 grub-common -y
+    mount "$EFI" /mnt/ENux/boot/efi \
+        || die "Failed to mount EFI partition $EFI at /boot/efi"
+
+    enux-chroot /mnt/ENux apt install -y grub-efi-amd64 grub-common \
+        || die "Failed to install GRUB EFI packages"
+
     enux-chroot /mnt/ENux grub-install \
         --target=x86_64-efi \
         --efi-directory=/boot/efi \
-        --bootloader-id=ENux --removable
-
+        --bootloader-id=ENux \
+        --removable \
+        || die "grub-install failed for EFI target"
 else
+    log "Legacy BIOS detected"
     echo "Legacy BIOS detected"
-    enux-chroot /mnt/ENux apt install grub-pc grub-common -y
-    enux-chroot /mnt/ENux grub-install $DRIVE
+    enux-chroot /mnt/ENux apt install -y grub-pc grub-common \
+        || die "Failed to install GRUB BIOS packages"
+
+    enux-chroot /mnt/ENux grub-install "$DRIVE" \
+        || die "grub-install failed for BIOS target on $DRIVE"
 fi
 
 echo
+log "Generating fstab"
+genfstab -U /mnt/ENux > /mnt/ENux/etc/fstab \
+    || die "Failed to generate /etc/fstab"
 
-genfstab -U /mnt/ENux > /mnt/ENux/etc/fstab
-
-echo "Updating initramfs"
-enux-chroot /mnt/ENux update-initramfs -c -k all
+log "Updating initramfs"
+echo "Updating initramfs..."
+enux-chroot /mnt/ENux update-initramfs -c -k all \
+    || die "update-initramfs failed"
 
 echo
+log "Generating GRUB config"
 echo "Generating GRUB config..."
-enux-chroot /mnt/ENux grub-mkconfig -o /boot/grub/grub.cfg
+enux-chroot /mnt/ENux grub-mkconfig -o /boot/grub/grub.cfg \
+    || die "grub-mkconfig failed"
 
 echo
+log "Running ENux Bedrock setup"
 echo "Running ENux Bedrock setup..."
-enux-chroot /mnt/ENux wget https://raw.githubusercontent.com/ENux-Distro/mirrors/refs/heads/main/enux-chroot -O /usr/local/bin/enux-chrooted
-enux-chroot /mnt/ENux bash /usr/local/bin/enux-chrooted
+enux-chroot /mnt/ENux wget \
+    https://raw.githubusercontent.com/ENux-Distro/mirrors/refs/heads/main/enux-chroot \
+    -O /usr/local/bin/enux-chrooted \
+    || die "Failed to download ENux Bedrock setup script"
+
+enux-chroot /mnt/ENux bash /usr/local/bin/enux-chrooted \
+    || die "ENux Bedrock setup script failed"
 
 echo
+log "Enabling system services"
 echo "Enabling services..."
-enux-chroot /mnt/ENux systemctl enable NetworkManager
-enux-chroot /mnt/ENux systemctl enable lightdm
+enux-chroot /mnt/ENux systemctl enable NetworkManager \
+    || die "Failed to enable NetworkManager"
+enux-chroot /mnt/ENux systemctl enable lightdm \
+    || die "Failed to enable LightDM"
+
 enux-chroot /mnt/ENux rm -rf /usr/share/images/desktop-base
 enux-chroot /mnt/ENux rm -rf /usr/local/bin/enux-chrooted
 
 echo
+log "Syncing disks"
 echo "Syncing disks..."
 sync
 
-echo
+log "Unmounting /mnt/ENux"
 echo "Unmounting system..."
-umount -R /mnt/ENux
+umount -R /mnt/ENux || die "Failed to unmount /mnt/ENux — unmount manually before rebooting"
 
 echo
 echo "================================="
 echo "       ENux installation done    "
 echo "================================="
+log "Installation completed successfully"
+log "Log saved to: $LOG_FILE"
 
 read -p "Reboot now? (y/n): " RB
 if [[ "$RB" =~ ^[Yy]$ ]]; then
+    log "User requested reboot"
     reboot
 else
     echo "Installation finished. Reboot manually when ready."

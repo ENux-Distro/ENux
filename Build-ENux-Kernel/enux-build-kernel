@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+set -e
+
+# --- Configuration ---
+BUILD_DIR="/tmp/enux-build-kernel"
+OUT_DIR="$HOME/Built-Kernel"
+CONFIG_URL="https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/Build-ENux-Kernel/.config"
+
+# --- Helper Functions ---
+usage() {
+    echo "Usage: enux-build-kernel [kernel stability]"
+    echo ""
+    echo "Options:"
+    echo "  latest             Build the latest mainline (x.y-rcX) kernel"
+    echo "  stable             Build the latest stable, non-rc kernel"
+    echo "  lts                Build the latest kernel in the 6.18.X series"
+    echo "  old-lts            Build the latest kernel in the 6.12.X series"
+    echo "  custom [release]   Build a specific kernel release (e.g., custom 6.10.3)"
+    exit 1
+}
+
+get_latest_series() {
+    # Fetches the highest patch version for a specific series (e.g., 6.18) directly from the CDN directory
+    local series="$1"
+    local major="${series%%.*}"
+    local version=$(curl -sL "https://mirrors.edge.kernel.org/pub/linux/kernel/v${major}.x/" | \
+        grep -oE "linux-${series}\.[0-9]+\.tar\.xz" | \
+        sed -E 's/linux-(.*)\.tar\.xz/\1/' | \
+        sort -V | tail -n 1)
+    
+    if [ -z "$version" ]; then
+        echo "Error: Could not find any releases for the ${series}.X series on kernel.org" >&2
+        exit 1
+    fi
+    echo "$version"
+}
+
+# --- 1. Parse Arguments & Determine Version ---
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+echo "=> Determining kernel version for profile: $1"
+case "$1" in
+    latest)
+        VERSION=$(curl -s https://www.kernel.org/releases.json | jq -r '.releases[] | select(.moniker == "mainline") | .version')
+        ;;
+    stable)
+        VERSION=$(curl -s https://www.kernel.org/releases.json | jq -r '.latest_stable.version')
+        ;;
+    lts)
+        VERSION=$(get_latest_series "6.18")
+        ;;
+    old-lts)
+        VERSION=$(get_latest_series "6.12")
+        ;;
+    custom)
+        if [ -z "${2:-}" ]; then
+            echo "Error: You must specify a kernel release for the 'custom' profile."
+            usage
+        fi
+        VERSION="$2"
+        ;;
+    *)
+        echo "Error: Unknown option '$1'"
+        usage
+        ;;
+esac
+
+if [ -z "$VERSION" ] || [ "$VERSION" == "null" ]; then
+    echo "Error: Failed to resolve the kernel version."
+    exit 1
+fi
+
+echo "=> Selected Kernel Version: $VERSION"
+
+# --- 2. Setup Build Directory ---
+echo "=> Cleaning up any previous build environments..."
+rm -rf "$BUILD_DIR"
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR"
+
+# --- 3. Wget the Chosen Kernel ---
+MAJOR_VERSION="${VERSION%%.*}"
+if [[ "$VERSION" == *"-rc"* ]]; then
+    KERNEL_URL="https://cdn.kernel.org/pub/linux/kernel/v${MAJOR_VERSION}.x/testing/linux-${VERSION}.tar.xz"
+else
+    KERNEL_URL="https://cdn.kernel.org/pub/linux/kernel/v${MAJOR_VERSION}.x/linux-${VERSION}.tar.xz"
+fi
+
+echo "=> Downloading kernel source from: $KERNEL_URL"
+wget -q --show-progress "$KERNEL_URL" -O "linux-${VERSION}.tar.xz"
+
+# --- 4. Extract and Change Directory ---
+echo "=> Extracting kernel tarball..."
+tar -xf "linux-${VERSION}.tar.xz"
+cd "linux-${VERSION}"
+
+# --- 5. Fetch the ENux .config ---
+echo "=> Fetching ENux kernel configuration..."
+wget -q --show-progress "$CONFIG_URL" -O .config
+
+# Ensure old config values are updated automatically without prompting the user
+yes "" | make olddefconfig
+
+# --- 6. Compile the Kernel ---
+echo "=> Starting kernel compilation (this may take a while)..."
+# Using -j$(nproc) ensures we utilize all CPU cores to speed up the compilation
+make bindeb-pkg -j"$(nproc)"
+
+# --- 7. Copy Built Kernels & Clean Up ---
+echo "=> Compilation finished! Moving built packages..."
+mkdir -p "$OUT_DIR"
+
+# bindeb-pkg generates the .deb files in the parent directory of the source tree
+cp ../*.deb "$OUT_DIR/"
+
+echo "=> Built kernels successfully copied to $OUT_DIR"
+
+echo "=> Cleaning up build directory..."
+cd /
+rm -rf "$BUILD_DIR"
+
+echo "=> ENux Kernel build complete!"

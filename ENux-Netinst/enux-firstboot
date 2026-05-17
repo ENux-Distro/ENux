@@ -1,0 +1,196 @@
+#!/bin/bash
+
+# ENux First Boot Experience
+# Runs once per user
+
+set -eE
+
+
+LOG_DIR="$HOME/.config/enux"
+LOG_FILE="$LOG_DIR/enux-welcomer.log"
+
+mkdir -p "$LOG_DIR"
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+}
+
+die() {
+    local cause="${1:-Unknown error}"
+    whiptail --title "ENux Welcomer Error" \
+        --msgbox "The ENux Welcomer encountered an error.\n\nCause: $cause\n\nSee full log at:\n$LOG_FILE" \
+        12 60
+    log "FATAL: $cause"
+    log "See full log at: $LOG_FILE"
+    exit 1
+}
+
+trap 'die "Unexpected failure at line $LINENO (command: $BASH_COMMAND)"' ERR
+
+AUTOSTART_FILE="$HOME/.config/autostart/enux-firstboot.desktop"
+FLAG="$HOME/.config/enux/firstboot-done"
+
+if [ -f "$FLAG" ]; then
+    log "First boot already completed, exiting"
+    exit 0
+fi
+
+log "ENux firstboot welcomer started"
+
+TITLE="ENux Welcomer"
+
+pause() {
+    whiptail --title "$TITLE" --msgbox "$1" 12 65
+}
+
+yesno() {
+    whiptail --title "$TITLE" --yesno "$1" 10 65
+}
+
+input() {
+    whiptail --title "$TITLE" --inputbox "$1" 10 65 "$2" 3>&1 1>&2 2>&3
+}
+
+check_internet() {
+    ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || return 1
+    return 0
+}
+
+if check_internet; then
+    log "Internet connectivity confirmed"
+else
+    pause "No internet connection detected.\n\nPlease connect to the internet, then reboot or run 'enux-firstboot' in the terminal."
+    log "FATAL: No internet connection"
+    exit 1
+fi
+
+whiptail --title "$TITLE" --msgbox \
+"Welcome to ENux!\n\nThis short setup will help you get started.\nIt will only run once." \
+12 65
+log "Welcome screen shown"
+
+RECOMMENDED_PKGS="git alsa-utils pavucontrol gcc g++"
+
+USER_PKGS=$(input \
+"Recommended packages will be installed:\n  $RECOMMENDED_PKGS\n\nEnter any extra packages (space-separated), or leave blank to skip:" \
+"") || true
+
+ALL_PKGS="$USER_PKGS"
+log "Packages to install: $ALL_PKGS"
+
+if yesno "The following packages will be installed:\n\n  $ALL_PKGS\n\nProceed?"; then
+    log "Installing packages"
+    sudo apt update    || die "apt update failed"
+    sudo apt install -y $ALL_PKGS || die "Failed to install one or more packages: $ALL_PKGS"
+    log "Package installation complete"
+else
+    log "User skipped package installation"
+fi
+
+whiptail --title "What is ENux?" --msgbox \
+"ENux is a Debian-based Linux distribution with Bedrock Linux on top.
+
+It is the first Linux distribution to support Bedrock Linux on the live environment.
+
+ENux lets you safely use software from multiple Linux distributions through one unified package manager: enux.
+
+You don't need to worry about where a package comes from — ENux handles that for you." \
+18 65
+log "ENux info screen shown"
+
+log "Downloading ENux Tools Suite"
+pause "Downloading the ENux Tools Suite..."
+
+BASE="https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools"
+sudo wget https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools/enux -O  /usr/bin/enux && sudo chmod +x /usr/bin/enux || die "Failed to download or execute ENux package manager"
+sudo wget https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools/enuxbootstrap -O /usr/bin/enuxbootstrap && sudo chmod +x /usr/bin/enuxbootstrap || die "Failed to download or execute ENuxBootstrap"
+sudo https://raw.githubusercontent.com/ENux-Distro/ENux/refs/heads/main/ENux-Tools/enux/enux-chroot -O /usr/bin/enux-chroot && sudo chmod +x /usr/bin/enux-chroot || die "Failed to download or execute ENux-Chroot"
+
+log "Fetching distro strata via brl"
+pause "Fetching package managers via Bedrock Linux.\n\nThis may take a few minutes — please be patient."
+
+for distro in \
+    "alpine --mirror https://dl-cdn.alpinelinux.org/alpine/" \
+    "void --mirror https://repo-default.voidlinux.org" \
+    "arch --mirror http://mirrors.edge.kernel.org/archlinux" \
+    "fedora --mirror https://mirrors.nxthost.com/fedora/" \
+    "gentoo --mirror https://gentoo.osuosl.org/" \
+    "opensuse"; do
+    name=$(echo "$distro" | awk '{print $1}')
+    log "brl fetch: $name"
+    sudo brl fetch $distro || { log "WARNING: brl fetch $name failed (non-fatal)"; true; }
+done
+
+log "Installing Nix"
+yes | sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon \
+    || { log "WARNING: Nix install failed (non-fatal)"; true; }
+
+log "Distro strata fetch complete"
+
+if yesno "Would you like to test a package manager?\n\nThis will install 'htop' from Void Linux using xbps as a quick demo."; then
+    log "User requested package manager demo"
+    sudo xbps-install htop || die "Failed to install htop via xbps — Void stratum may not be available yet"
+    log "Package manager demo complete"
+else
+    log "User skipped package manager demo"
+fi
+
+whiptail --title "What is WingAI?" --msgbox \
+"WingAI is a Meta-AI designed for programmers who want to use powerful models simultaneously.
+
+WingAI combines Gemini, Qwen, and Nemotron AI responses using the Response Packager." \
+12 65
+log "WingAI info screen shown"
+
+if yesno "Would you like to install WingAI?"; then
+    log "Installing WingAI"
+    wget https://github.com/ENux-Distro/WingAI/releases/download/WingAI-0.3.0/WingAI-0.3.0.deb \
+        || die "Failed to download WingAI"
+    sudo dpkg -i WingAI-0.3.0.deb \
+        || die "Failed to install WingAI .deb package"
+    rm -f WingAI-0.3.0.deb
+    log "WingAI installed"
+else
+    log "User skipped WingAI"
+fi
+
+whiptail --title "What is ENux-AI?" --msgbox \
+"ENux-AI is a local AI tool built to help you with ENux — running entirely on your machine.
+
+It uses Qwen 2.5 7B as its base model for strong reasoning and lightweight performance.
+
+You can run ENux-AI from your terminal or access it from your browser at localhost.
+
+WARNING: ENux-AI requires at least 8 GB of RAM and a 4-core CPU." \
+16 65
+log "ENux-AI info screen shown"
+
+if yesno "Would you like to install ENux-AI?\n\nNote: This may take a while to download and build."; then
+    log "Installing ENux-AI"
+    pause "Installing ENux-AI...\n\nSit back and relax while ENux Welcomer sets this up for you."
+    wget https://github.com/ENux-Distro/ENux-AI/releases/download/ENux-AI-1.0/ENux-AI-1.0.tar.zst \
+        || die "Failed to download ENux-AI"
+    tar xf ENux-AI-1.0.tar.zst \
+        || die "Failed to extract ENux-AI archive"
+    cd ENux-AI
+    make || die "ENux-AI build failed"
+    cd ..
+    rm -f ENux-AI-1.0.tar.zst
+    log "ENux-AI installed"
+else
+    log "User skipped ENux-AI"
+fi
+
+whiptail --title "$TITLE" --msgbox \
+"You are all set. Enjoy ENux!" \
+10 65
+
+log "First boot setup completed successfully"
+
+# Mark as done and clean up
+touch "$FLAG"
+sudo rm -f /usr/bin/enux-firstboot
+rm ~/.bash_profile
+log "Cleanup complete. ENux Welcomer will not run again."
+exit 0

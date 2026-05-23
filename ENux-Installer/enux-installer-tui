@@ -185,6 +185,10 @@ log "Setting up autostart config for $USERNAME"
 mkdir -p /mnt/ENux/home/"$USERNAME"/.config/autostart || true
 cp /usr/share/enux/enux-firstboot.desktop \
    /mnt/ENux/home/"$USERNAME"/.config/autostart/enux-firstboot.desktop 2>/dev/null || true
+
+cp /etc/xdg/autostart/enux-theme.desktop /mnt/ENux/home/"$USERNAME"/.config/autostart/enux-theme.desktop
+cp /usr/local/bin/enux-theme-apply /mnt/ENux/usr/local/bin/enux-theme-apply
+
 enux-chroot /mnt/ENux chown -R "$USERNAME:$USERNAME" \
     /home/"$USERNAME"/.config || true
 

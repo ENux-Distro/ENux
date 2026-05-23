@@ -195,7 +195,10 @@ cp /usr/share/enux/enux-firstboot.desktop \
 mkdir -p /mnt/home/"$USERNAME"/.config/fastfetch || true
 cp /usr/share/enux/config.jsonc \
    /mnt/home/"$USERNAME"/.config/fastfetch 2>/dev/null || true
+cp /etc/xdg/autostart/enux-theme.desktop /mnt/ENux/home/"$USERNAME"/.config/autostart/enux-theme.desktop 
+cp /usr/local/bin/enux-theme-apply /mnt/ENux/usr/local/bin/enux-theme-apply
 enux-chroot /mnt/ENux chown -R "$USERNAME:$USERNAME" /home/"$USERNAME"/.config || true
+
 
 echo "Set root password"
 enux-chroot /mnt/ENux passwd \

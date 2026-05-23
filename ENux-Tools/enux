@@ -19,7 +19,6 @@ case "$1" in
     echo
     echo "                             ENux Package Manager has super-crow powers"
     if [[ "$(id -u)" == 0 ]]; then
-      echo ""
       echo "                             And the power is unlocked now" # Thank you cajald for this idea
     fi 
     

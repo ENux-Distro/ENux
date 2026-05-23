@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=ENux Themes
+Exec=/usr/local/bin/enux-theme-apply
+OnlyShowIn=XFCE;
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

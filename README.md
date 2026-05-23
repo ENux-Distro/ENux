@@ -125,6 +125,11 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 
    - Thank you everyone for the Rising Star award on Sourceforge. In honour to that, I'd like to introduce ENux Netinst. ENux Netinst is a lightweight non-GUI ISO with TUI installation support over the network with smaller ISO size and a more direct installation procces.
 
+### ENux 5.3.3
+   - With the community and myself's complain that the ENux installer doesn't do proper logging, and just exists if something bad happens, we've polished the ENux Installer (CLI and TUI). Now when something that does exit 1+ happens, the installer tells you what happens, and expects user input to exit. 
+   - We've also made the ENux Welcomer TUI instead of CLI, for better looking asthetics, and overall user experience. 
+   - ENux now uses the GPL-v3 license instead of no license. 
+
 ## Historic Versions of ENux
 
 ### ENux Pre-Prototype 1.0

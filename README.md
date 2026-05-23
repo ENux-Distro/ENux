@@ -147,7 +147,7 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 ## Hardware Requirements
 
 **Minimum:**
-- CPU: x86_64-v2 (Required for CentOS fetch) 
+- CPU: x86_64
 - RAM: 550 MB  
 - Storage: 25 GB  
 

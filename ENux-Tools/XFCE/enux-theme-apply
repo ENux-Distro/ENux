@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"

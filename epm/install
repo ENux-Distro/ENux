@@ -1,0 +1,42 @@
+#!/bin/sh
+
+case "$1" in
+  "" )
+    if command -v gcc >/dev/null; then
+      true
+    else
+      echo "You need to install gcc first" ; exit 1
+    fi
+    echo "CC epm.c"
+    gcc epm.c -o epm
+    ;;
+
+  --static )
+    if command -v gcc >/dev/null; then
+      true
+    else
+      echo "You need to install gcc first" ; exit 1
+    fi
+    echo "CC-static epm.c"
+    gcc epm.c -o -static epm
+    ;;
+
+  install )
+    if [ "$(id -u)" -ne 0 ]; then echo "Run as root"; exit 1; fi
+    if command -v gcc >/dev/null; then
+      true
+    else
+      echo "You need to install coreutils first" ; exit 1
+    fi
+    echo "INSTALL epm"
+    install -m 755 epm /usr/bin/epm
+    ;;
+
+  --help )
+    echo "epm installation script"
+    echo 
+    echo "./install: Compiles epm as a dynamic executable"
+    echo "./install --static: Compiles epm as a static executable"
+    echo "./install install: Installs epm to your host"
+    ;;
+esac

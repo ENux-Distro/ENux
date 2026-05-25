@@ -63,7 +63,25 @@ All must target **x86_64 Linux**. The binary is statically linked and has no run
 
 ## Installation
 
-### 1. Build
+### 1. Download
+
+Either git clone init.c via
+```bash
+git clone --depth 1 https://github.com/ENux-Distro/init.c
+```
+or download the tar archive via
+
+```bash
+wget https://github.com/ENux-Distro/ENux/raw/refs/heads/main/init.c/init.c-0.1.0.tar.gz
+```
+
+### 2. Build
+
+Change your directory to the cloned or extracted repo folder via
+```bash
+cd init.c
+```
+and then build
 
 ```bash
 make
@@ -71,7 +89,7 @@ make
 
 Produces `build/init` (stripped, ~850KB ELF64).
 
-### 2. Install
+### 3. Install
 
 ```bash
 sudo make install

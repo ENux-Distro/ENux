@@ -10,7 +10,6 @@ exec fastfetch
 EOF
 chmod +x /usr/bin/enuxfetch'
 
-
 echo "[*] Done"
 sleep 0.45
 exit 0

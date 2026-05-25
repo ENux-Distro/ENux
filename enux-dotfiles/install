@@ -10,28 +10,6 @@ exec fastfetch
 EOF
 chmod +x /usr/bin/enuxfetch'
 
-# If you want to install the ENux wallpaper to your system, uncomment these comments
-
-# echo "[*] Installing XWallpaper and setting up the wallpaper"
-#
-# su -c "apt install -y xwallpaper -q"
-
-# mkdir -p "$HOME/.local/share/walls"
-# cp walls/ENux.jpg "$HOME/.local/share/walls/ENux.jpg"
-
-# WALL="$HOME/.local/share/walls/ENux.jpg"
-
-# mkdir -p "$HOME/.config/autostart"
-
-# cat > "$HOME/.config/autostart/xwallpaper.desktop" << EOF
-# [Desktop Entry]
-# Type=Application
-# Name=Wallpaper
-# Exec=xwallpaper --zoom $WALL
-# X-GNOME-Autostart-enabled=true
-# EOF
-
-# xwallpaper --zoom "$WALL"
 
 echo "[*] Done"
 sleep 0.45

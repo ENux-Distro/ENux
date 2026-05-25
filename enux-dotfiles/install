@@ -1,0 +1,38 @@
+#!/bin/sh
+
+echo "[*] Copying read-only files to host using su"
+
+su -c "mkdir -p /etc/fastfetch && cp etc/fastfetch/E-logo.txt /etc/fastfetch/E-logo.txt cp etc/fastfetch/config.jsonc /etc/fastfetch/config.jsonc && cp etc/nanorc /etc/nanorc"
+
+su -c 'cat > /usr/bin/enuxfetch << EOF
+#!/bin/sh
+exec fastfetch
+EOF
+chmod +x /usr/bin/enuxfetch'
+
+# If you want to install the ENux wallpaper to your system, uncomment these comments
+
+# echo "[*] Installing XWallpaper and setting up the wallpaper"
+#
+# su -c "apt install -y xwallpaper -q"
+
+# mkdir -p "$HOME/.local/share/walls"
+# cp walls/ENux.jpg "$HOME/.local/share/walls/ENux.jpg"
+
+# WALL="$HOME/.local/share/walls/ENux.jpg"
+
+# mkdir -p "$HOME/.config/autostart"
+
+# cat > "$HOME/.config/autostart/xwallpaper.desktop" << EOF
+# [Desktop Entry]
+# Type=Application
+# Name=Wallpaper
+# Exec=xwallpaper --zoom $WALL
+# X-GNOME-Autostart-enabled=true
+# EOF
+
+# xwallpaper --zoom "$WALL"
+
+echo "[*] Done"
+sleep 0.45
+exit 0

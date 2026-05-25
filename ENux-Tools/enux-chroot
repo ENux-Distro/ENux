@@ -18,11 +18,11 @@ fi
 echo "Mounting virtual filesystems for $CHROOT_DIR …"
 
 # Mount /proc, /sys, /dev, /run, /dev/pts
-sudo mount --bind /proc "$CHROOT_DIR/proc"
-sudo mount --bind /sys "$CHROOT_DIR/sys"
-sudo mount --bind /dev "$CHROOT_DIR/dev"
-sudo mount --bind /run "$CHROOT_DIR/run"
-sudo mount --bind /dev/pts "$CHROOT_DIR/dev/pts"
+sudo mount --bind -m /proc "$CHROOT_DIR/proc"
+sudo mount --bind -m /sys "$CHROOT_DIR/sys"
+sudo mount --bind -m /dev "$CHROOT_DIR/dev"
+sudo mount --bind -m /run "$CHROOT_DIR/run"
+sudo mount --bind -m /dev/pts "$CHROOT_DIR/dev/pts"
 
 # Trap to clean up mounts when script exits
 cleanup() {

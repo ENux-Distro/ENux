@@ -258,6 +258,7 @@ When the ENux Welcomer brl fetches Gentoo, then its nothing to panic or freak ou
 - The username on the live system is `ENux`
 - The password on the live system is `enux`
 
+- You can watch the ENux installation video from [here](https://www.youtube.com/watch?v=HXv2x1p0AKA)
 ## Troubleshooting
 
 If you encounter issues:

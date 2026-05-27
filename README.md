@@ -245,6 +245,13 @@ PING www.emirpasha.com (2606:4700:3033::6815:50c3) 56 data bytes
 
 it means your WiFi is working.
 
+### Lots of dots Gentoo brl fetch operation on the ENux Welcomer
+
+If you see 
+![wget](images/wget.png)
+
+When the ENux Welcomer brl fetches Gentoo, then its nothing to panic or freak out. This means that the ENux Welcomer downloading Gentoo stuff properly. Everything is working. (Also you can tell your friends you're hacking when this appears)
+
 
 ## Dev Notes
 

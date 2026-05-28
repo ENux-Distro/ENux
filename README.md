@@ -1,13 +1,13 @@
-# ENux 5.3.3
+# ENux 5.4.3
 
-Welcome to **ENux 5.3.3**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
+Welcome to **ENux 5.4.3**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
 
 ![ENux Rice](images/ENux-Rice.png)
 
 
 ## What is ENux?
 
-ENux 5.3.3 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+ENux 5.4.3 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
 
 This configuration allows you to use multiple mainstream Linux package managers on a single system:
 
@@ -18,13 +18,15 @@ This configuration allows you to use multiple mainstream Linux package managers 
 - zypper (openSUSE)
 - emerge / portrage (Gentoo)
 - pacman (Arch)
-- enux (Package Manager Manager)
+- enux (ENux's pmm wrapper)
 - epkg (EPkgOS) 
 - nix (NixOS)
+- flatpak **(New)**
+- epm (ENux **(New)**)
 
 **Conflict resolution:**
 Bedrock Linux handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
-Note: nix and epkg isn't a part of brl/pmm, it is independent
+Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 ---
 
 ## Features
@@ -33,10 +35,10 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 - Bedrock Linux pre-installed
 - Access to multiple package managers on one system  
 - Unified **enux** tool for simplified package management
-- A nice ENux Welcome CLI program
+- A nice ENux Welcomer CLI program
 - Lightweight **XFCE** desktop for performance  
 - Clean, minimal, and beginner-friendly setup
-- Our own Linux 7.0.0-enux kernel, ensuring you got the latest bleeding edge hardware and firmware support
+- Our own Linux 7.1.0-rc4-enux kernel, ensuring you got the latest bleeding edge hardware and firmware support
 - Created with our own ISO Creator tool
 
 ---
@@ -54,7 +56,7 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 - The installation requires you to have really stable networking
 - Is recommended for people who doesn't want any GUI on their system, and prefer network installers
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 and 5.3.3
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, and 5.4.3
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -130,7 +132,22 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 ### ENux 5.3.3
    - With the community and myself's complain that the ENux installer doesn't do proper logging, and just exists if something bad happens, we've polished the ENux Installer (CLI and TUI). Now when something that does exit 1+ happens, the installer tells you what happens, and expects user input to exit. 
    - We've also made the ENux Welcomer TUI instead of CLI, for better looking asthetics, and overall user experience. 
-   - ENux now uses the GPL-v3 license instead of no license. 
+   - ENux now uses the GPL-v3 license instead of no license.
+
+### ENux 5.4.3
+
+- Switched from 7.0.0-enux kernel to 7.1.0-rc4-enux
+- ENux Live XFCE will now have Papirus Icon theme + Aidwata dark pre-configured
+- ENux now has 15 package managers; added flatpak and [epm](https://github.com/ENux-Distro/epm)
+- Added [E-Libc](https://github.com/ENux-Distro/epm)
+- Added optional support for [init.c](https://github.com/ENux-Distro/init.c)
+- Removed the ENux Installer CLI
+- ENux now has [our dotfiles](https://github.com/ENux-Distro/dotfiles) pre-installed on both the live environment and the installed environment
+- Added nix, epkg, epm and flatpak on the live environment
+- Polished the ENux Installer and ENux Welcomer
+- Created ENux Wiki
+- Published a video on [how to install ENux Live XFCE](https://youtu.be/HXv2x1p0AKA?si=JwVNmMxdXRDIEPPh) (will create a video on how to install ENux Netinst as well)
+
 
 ## Historic Versions of ENux
 
@@ -172,22 +189,22 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 ## Installation Guide for ENux Live
 
 1. Download ENux Live from
-   - [ENux-5.3.3.iso](http://www.emirpasha.com/ENux-5.3.3.iso)
-   - [ENux-5.3.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.3.3/ENux-Netinst-5.3.3.iso/download)
-   - [ENux-5.3.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.3.3/ENux-5.3.3.iso)
+   - [ENux-5.4.3.iso](http://www.emirpasha.com/ENux-5.4.3.iso)
+   - [ENux-5.4.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.4.3/ENux-5.4.3.iso/download)
+   - [ENux-5.4.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.4.3/ENux-5.4.3.iso)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
-3. Boot from the USB drive and run the **ENux Installer (CLI/TUI)**.
+3. Boot from the USB drive and run the **ENux Installer (TUI)**.
 
 4. After installation and reboot, and the **ENux Welcomer** will welcome you
 
 ## Installation Guide for ENux Netinst
 
 1. Download ENux Netinst from
-   - [ENux-Netinst-5.3.3.iso](http://www.emirpasha.com/ENux-Netinst-5.3.3.iso)
-   - [ENux-Netinst-5.3.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.3.3/ENux-Netinst-5.3.3.iso/download)
-   - [ENux-Netinst-5.3.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-Netinst-5.3.3/ENux-Netinst-5.3.3.iso)
+   - [ENux-Netinst-5.4.3.iso](http://www.emirpasha.com/ENux-Netinst-5.4.3.iso)
+   - [ENux-Netinst-5.4.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.4.3/ENux-Netinst-5.4.3.iso/download)
+   - [ENux-Netinst-5.4.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-Netinst-5.4.3/ENux-Netinst-5.4.3.iso)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
@@ -195,7 +212,7 @@ Note: nix and epkg isn't a part of brl/pmm, it is independent
 
 4. After installation and reboot, and the **ENux Welcomer** will welcome you
 
-## Known Behaviors
+## Known Issues
 
 ### ENux Welcomer Mirroring
 

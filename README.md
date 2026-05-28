@@ -2,7 +2,7 @@
 
 Welcome to **ENux 5.4.3**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
 
-![ENux Rice](images/ENux-Rice.png)
+![ENux Rice](images/ENux-Rice.png.png)
 
 
 ## What is ENux?

@@ -1,5 +1,9 @@
 #!/bin/bash
 # The CLI Installer for ENux
+
+####################################################
+#### THE CLI INSTALLER ISN'T MAINTAINED ANYMORE ####
+####################################################
 set -eE
 
 LOG_DIR="/var/enux"

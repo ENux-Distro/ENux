@@ -175,6 +175,12 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 
 ---
 
+### ENux Release Cycle
+
+Back in the first versions of ENux, we moved EXTREMELY fast, like 2.1 and 3.0 at the exact same day kind of fast. During that times, ENux didn't had a proper
+release cycle. But in the 5.x series, I've decided to create an ENux release cycle, a new release will release every 9-30+ days. The release model of ENux
+is semi-rolling/rolling.
+
 ## Hardware Requirements
 
 **Minimum:**

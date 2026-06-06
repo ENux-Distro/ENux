@@ -21,8 +21,8 @@ This configuration allows you to use multiple mainstream Linux package managers 
 - enux (ENux's pmm wrapper)
 - epkg (EPkgOS) 
 - nix (NixOS)
-- flatpak **(New)**
-- epm (ENux **(New)**)
+- flatpak
+- epm (ENux) 
 
 **Conflict resolution:**
 Bedrock Linux handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.

@@ -173,13 +173,16 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
    - It was a tar archive containing 2 scripts
    - Technically the lightest version of ENux
 
----
 
-### ENux Release Cycle
+## ENux Release Cycle
 
-Back in the first versions of ENux, we moved EXTREMELY fast, like 2.1 and 3.0 at the exact same day kind of fast. During that times, ENux didn't had a proper
-release cycle. But in the 5.x series, I've decided to create an ENux release cycle, a new release will release every 9-30+ days. The release model of ENux
-is semi-rolling/rolling.
+TL;DR: ENux uses a snapshot-based semi-rolling release model.
+
+ENux is developed as a fast-moving system, where changes are continuously made and tested. When a set of changes is stable and meaningful, a new snapshot release is published (e.g. ENux 5.5.3).
+
+ENux does not follow a fixed long-term release schedule. Instead, releases are made when major updates are ready, typically every 9–30+ days depending on development activity.
+
+This approach allows ENux to stay fast-moving while still providing stable, installable snapshot ISOs for users.
 
 ## Hardware Requirements
 

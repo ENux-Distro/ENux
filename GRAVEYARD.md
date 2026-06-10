@@ -68,4 +68,6 @@ Wow. I feel really sad because I'm dropping the ENux Welcomer and the firstboot 
 
 With my recent breaktrough of making ENux have 6 stratas and 15 package managers in the live environment, I realized that brl fetch operations can be taken
 to the next level. I'm currently working on at ENux 5.6.3, which'll combine the Installer + Welcomer into a one powerhouse installer at the time of writing.
-So a few days later, ENux Welcomer and the firstboot logic will be in the grave permanently
+So a few days later, ENux Welcomer and the firstboot logic will be in the grave permanently.
+
+*It had a good run*

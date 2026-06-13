@@ -180,7 +180,7 @@ TL;DR: ENux uses a snapshot-based semi-rolling release model.
 
 ENux is developed as a fast-moving system, where changes are continuously made and tested. When a set of changes is stable and meaningful, a new snapshot release is published (e.g. ENux 5.5.3).
 
-ENux does not follow a fixed long-term release schedule. Instead, releases are made when major updates are ready, typically every 9–30+ days depending on development activity.
+ENux does not follow a fixed long-term release schedule. Instead, releases are made when major updates are ready, typically every 7–30+ days depending on development activity.
 
 This approach allows ENux to stay fast-moving while still providing stable, installable snapshot ISOs for users.
 

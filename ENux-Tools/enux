@@ -2,40 +2,53 @@
 # ENux Package Manager
 PMM="/bedrock/bin/pmm"
 
-case "$1" in
-  "" )
-    echo "ENux Package Manager"
-    echo "Use the --about flag for more information"
-    ;;
+# No arguments: short usage.
+if [[ -z "$1" ]]; then
+  echo "ENux Package Manager"
+  echo "Use the --about flag for more information"
+  exit 0
+fi
 
-  --about )
-    echo
-    echo "ENux Package Manager"
-    echo "Simple Commands:"
-    echo "install - Installs your desired package"
-    echo "remove - Removes your desired package"
-    echo "update - Updates the system"
-    echo "upgrade - Upgrades the system"
-    echo
-    echo "                             ENux Package Manager has super-crow powers"
-    if [[ "$(id -u)" == 0 ]]; then
-      echo "                             And the power is unlocked now" # Thank you cajald for this idea
-    fi 
-    
-    exit 0
-    ;;
+# Informational flag.
+if [[ "$1" == "--about" ]]; then
+  echo
+  echo "ENux Package Manager"
+  echo "Simple Commands:"
+  echo "install - Installs your desired package"
+  echo "remove - Removes your desired package"
+  echo "update - Updates the system"
+  echo "upgrade - Upgrades the system"
+  echo "search - Searches your desired package"
+  echo
+  echo "                             ENux Package Manager has super-crow powers"
+  if [[ "$(id -u)" == 0 ]]; then
+    echo ""
+    echo "                             And the power is unlocked now" # Thank you cajald for this idea
+  fi
 
-  # Commands that DO NOT require sudo
-  search|show|list )
-    "$PMM" "$@"
-    ;;
+  exit 0
+fi
 
-  # Commands that DO require sudo
-  install|remove|purge|update|upgrade|full-upgrade|autoremove )
-    sudo "$PMM" "$@"
-    ;;
+# The operation can appear after global flags (e.g. `enux -y install foo`),
+# so scan every argument for it rather than only looking at $1. This is what
+# lets leading flags like -y / --strat work. All arguments are then passed to
+# pmm unchanged, in pmm's own [flags] <operation> [args] order.
+needs_sudo=0
+for arg in "$@"; do
+  case "$arg" in
+    install|reinstall|remove|purge|update|upgrade|dist-upgrade|full-upgrade|autoremove|clear|autoclean|auto-clean )
+      needs_sudo=1
+      break
+      ;;
+    search|show|list )
+      needs_sudo=0
+      break
+      ;;
+  esac
+done
 
-  * )
-    sudo "$APT" "$@"
-    ;;
-esac
+if [[ "$needs_sudo" == 1 ]]; then
+  sudo "$PMM" "$@"
+else
+  "$PMM" "$@"
+fi

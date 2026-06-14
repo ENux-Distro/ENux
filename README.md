@@ -1,13 +1,13 @@
-# ENux 5.5.3
+# ENux 5.6.3
 
-Welcome to **ENux 5.5.3**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
+Welcome to **ENux 5.6.3**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
 
 ![ENux Rice](images/ENux-Rice.png.png)
 
 
 ## What is ENux?
 
-ENux 5.5.3 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+ENux 5.6.3 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
 
 This configuration allows you to use multiple mainstream Linux package managers on a single system:
 
@@ -27,6 +27,9 @@ This configuration allows you to use multiple mainstream Linux package managers 
 **Conflict resolution:**
 Bedrock Linux handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
 Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
+
+**About Nix**: ENux 5.6.3's installer will not install Nix because of the environment. You can still test it in the live environment.
+
 ---
 
 ## Features
@@ -56,7 +59,7 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - The installation requires you to have really stable networking
 - Is recommended for people who doesn't want any GUI on their system, and prefer network installers
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, 5.4.3 and 5.5.3
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, 5.4.3 and 5.6.3
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -148,13 +151,13 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - Created ENux Wiki
 - Published a video on [how to install ENux Live XFCE](https://youtu.be/HXv2x1p0AKA?si=JwVNmMxdXRDIEPPh) (will create a video on how to install ENux Netinst as well)
 
-### ENux 5.5.3
+### ENux 5.6.3
 
 - ENux is the first ever Linux distribution with Bedrock Linux stratas pre-fetched
 - ENux now has 15 package managers in the live environment, with 6 stratas pre-fetched in the live environment
 - This allows you to test out the package managers, and Bedrock Linux commands without nuking your hard drive
 - The ISO size has increased to ~3 GB but the experience got better
-- Because of the ISO size, ENux 5.5.3 Live has replaced the GitHub pages mirror with Internet Archive's
+- Because of the ISO size, ENux 5.6.3 Live has replaced the GitHub pages mirror with Internet Archive's
 
 ## Historic Versions of ENux
 
@@ -178,7 +181,7 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 
 TL;DR: ENux uses a snapshot-based semi-rolling release model.
 
-ENux is developed as a fast-moving system, where changes are continuously made and tested. When a set of changes is stable and meaningful, a new snapshot release is published (e.g. ENux 5.5.3).
+ENux is developed as a fast-moving system, where changes are continuously made and tested. When a set of changes is stable and meaningful, a new snapshot release is published (e.g. ENux 5.6.3).
 
 ENux does not follow a fixed long-term release schedule. Instead, releases are made when major updates are ready, typically every 7–30+ days depending on development activity.
 
@@ -205,9 +208,9 @@ This approach allows ENux to stay fast-moving while still providing stable, inst
 ## Installation Guide for ENux Live
 
 1. Download ENux Live from
-   - [ENux-5.5.3.iso](http://www.emirpasha.com/ENux-5.5.3.iso)
-   - [ENux-5.5.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.5.3/ENux-5.5.3.iso/download)
-   - [ENux-5.5.3.iso (GitHub)](https://archive.org/download/enux-5.5.3/ENux-5.5.3.iso)
+   - [ENux-5.6.3.iso](http://www.emirpasha.com/ENux-5.6.3.iso)
+   - [ENux-5.6.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.6.3/ENux-5.6.3.iso/download)
+   - [ENux-5.6.3.iso (GitHub)](https://archive.org/download/enux-5.6.3/ENux-5.6.3.iso)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
@@ -218,9 +221,9 @@ This approach allows ENux to stay fast-moving while still providing stable, inst
 ## Installation Guide for ENux Netinst
 
 1. Download ENux Netinst from
-   - [ENux-Netinst-5.5.3.iso](http://www.emirpasha.com/ENux-Netinst-5.5.3.iso)
-   - [ENux-Netinst-5.5.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.5.3/ENux-Netinst-5.5.3.iso/download)
-   - [ENux-Netinst-5.5.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.5.3/ENux-Netinst-5.5.3.iso)
+   - [ENux-Netinst-5.6.3.iso](http://www.emirpasha.com/ENux-Netinst-5.6.3.iso)
+   - [ENux-Netinst-5.6.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.6.3/ENux-Netinst-5.6.3.iso/download)
+   - [ENux-Netinst-5.6.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.6.3/ENux-Netinst-5.6.3.iso)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 

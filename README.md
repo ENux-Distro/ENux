@@ -59,7 +59,7 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - The installation requires you to have really stable networking
 - Is recommended for people who doesn't want any GUI on their system, and prefer network installers
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, 5.4.3 and 5.6.3
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, 5.4.3, 5.5.3 and 5.6.3
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -151,7 +151,7 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - Created ENux Wiki
 - Published a video on [how to install ENux Live XFCE](https://youtu.be/HXv2x1p0AKA?si=JwVNmMxdXRDIEPPh) (will create a video on how to install ENux Netinst as well)
 
-### ENux 5.6.3
+### ENux 5.5.3
 
 - ENux is the first ever Linux distribution with Bedrock Linux stratas pre-fetched
 - ENux now has 15 package managers in the live environment, with 6 stratas pre-fetched in the live environment
@@ -159,6 +159,16 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - The ISO size has increased to ~3 GB but the experience got better
 - Because of the ISO size, ENux 5.6.3 Live has replaced the GitHub pages mirror with Internet Archive's
 
+### ENux 5.6.3
+
+- Thank you everyone for 2000 downloads on SourceForge. To celebrate that milestone, I've released ENux 5.6.3 with Project ENux Simple, which is me trying to make ENux be a more beginner friendly distro (not Ubuntu/Mint/ZorinOS type of beginner friendly)
+- Reduced installation process from 2 to 1
+- Improved the TUI installer so its a Calamares style interrupted installed
+- Added ENux Installer GUI, 
+- Added ENux Package Manager GUI
+- The installer won't install Nix because of the installer environment. You can still use it in the live environment.
+- Removed the root and username ENux's password in the live environment
+- 
 ## Historic Versions of ENux
 
 ### ENux Pre-Prototype 1.0

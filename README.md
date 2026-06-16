@@ -157,7 +157,7 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - ENux now has 15 package managers in the live environment, with 6 stratas pre-fetched in the live environment
 - This allows you to test out the package managers, and Bedrock Linux commands without nuking your hard drive
 - The ISO size has increased to ~3 GB but the experience got better
-- Because of the ISO size, ENux 5.6.3 Live has replaced the GitHub pages mirror with Internet Archive's
+- Because of the ISO size, ENux 5.6.3 Live has replaced the GitHub mirror with Internet Archive's
 
 ### ENux 5.6.3
 
@@ -220,7 +220,7 @@ This approach allows ENux to stay fast-moving while still providing stable, inst
 1. Download ENux Live from
    - [ENux-5.6.3.iso](http://www.emirpasha.com/ENux-5.6.3.iso)
    - [ENux-5.6.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.6.3/ENux-5.6.3.iso/download)
-   - [ENux-5.6.3.iso (GitHub)](https://archive.org/download/enux-5.6.3/ENux-5.6.3.iso)
+   - [ENux-5.6.3.iso (Internet Archive)](https://archive.org/download/enux-5.6.3/ENux-5.6.3.iso)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 

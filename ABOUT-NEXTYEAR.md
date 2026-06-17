@@ -16,13 +16,12 @@ More about LGS:
 - Needs to be studied very hard for a good high-school
 
 What has LGS got to do with **ENux** you might ask. Well since I need to study extremely hard to get into an high-school which focuses on science, maths,
-programming, building and etc. During that time period, because you need to study very hard, you need to sacrifice from things like your hobbies. 
-For my case, I need to sacrifice **ENux** during that time period.
+programming, building and etc. During that time period, because you need to study very hard, you need to work less from things like your hobbies. 
+For my case, I need to work less **ENux** during that time period.
 
 ## What does this mean for ENux
 
-During that time, ENux won't actually be frozen, I'll still try to release minor updates on my free time. But my free time is going to be like maximum 3-5 hours
-per week. 
+During that time, ENux won't actually be frozen, I'll still try to release minor updates on my free time.
 
 This means that:
 - No major ground-breaking features won't be added during this time period
@@ -31,4 +30,9 @@ This means that:
 ## But Wait
 
 This doesn't mean that I will half-work half-abondon ENux. Technically, I'm studying a lot so I can take ENux to better places. So don't worry, I'm working
-hard now, for the greater good in the feature.
+hard now, for the greater good in the feature :D
+
+## About ENux 6.0
+
+ENux 6.0 will be what I'll try to build after LGS. It'll be LFS + The ENux Layer, which'll be a custom Bedrock Linux-style layer. Since this is a project that
+must be worked on and test for a REALLY long time, I'll start working on it after LGS.

@@ -50,11 +50,14 @@ ENux is a Debian-based experimental Linux distribution with Bedrock Linux pre-in
 - Switch bases from Debian to LFS
 - A custom package manager with its own package format
 
+## ENux 6.0
+
+ENux 6.0 is planning to move from Debian + Bedrock to LFS + The ENux Layer, which'll be a custom Bedrock-style layer. This will take a long time to build you folks :D
 ## Philosophy
 
 ENux is not a traditional Linux distribution.
 
 It:
 - Has Bedrock Linux pre-installed
-- Has 13 package managers
+- Has 15 package managers
 - Uses custom kernels

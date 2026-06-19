@@ -15,12 +15,13 @@ The ENux Layer will create a /enux directory, just like /bedrock. That directory
 - /enux/layerdata.enuxconfig: This .enuxconfig is going to contain what is the current, used layer. This'll also include the order of executing a file, and top priorities. Here's how layerdata.enuxconfig will look like:
 ```bash
 active_layer="enux"
-exec_order="$active_layer", "fedora", "arch"
+exec_order=["enux"]
 
 # WARNING: The top priority and defining which executable will run on which layer IS INCREDIBLY DANGEROUS. THESE ARE COMMENTED ON PURPOSE
 # top_priority="arch"
 # gcc="fedora"
 ```
+When a new layer gets installed, the exec_order will be updated. The first layer will always be the first on the exec_order list.
 - /enux/sbin/: Will contain the init. Thinking of re-writing init.c for this.
 - /enux/libexec/: Will contain some of the program's core. For example there's pmm in /bedrock/bin/, which calls /bedrock/libexec/pmm with the apt interface. The pmm in /bedrock/libexec contains the core of everything, while /bedrock/bin/ are usually wrappers calling the programs, same with The ENux Layer.
 - /enux/etc/: Will contain stuff like os-release and enux.conf.

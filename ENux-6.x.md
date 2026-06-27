@@ -28,25 +28,42 @@ The ENux Layer will integrate these programs:
 
 ## How to Install and Use (Detailed Edition)
 
-During early alpha builds, I'm planning of releasing The ENux Layer to the public. After everything is finalized, I'll integrate that to ENux 6.x Alpha Builds.
+The ENux Layer is currently in GitHub, it'll be integrated to ENux in **ENux 6.0 Stable**.
 
-During early alpha builds of The ENux Layer, you'll do these:
+To install The ENux Layer onto your system, you need to do these:
 
-- Download the script
-- Make it executable and run ./the-enux-layer --install and then type Not revertable since its in early alpha builds and has the risk of damaging your system.
-- Reboot to finalize everything
+```bash
+git clone --depth 1 https://github.com/ENux-Distro/The-ENux-Layer
+cd The-ENux-Layer
+make && make check
+make install
+```
+When ENux 6.0 Stable releases with The ENux Layer, you're going to do these:
 
-When The ENux Layer reaches to ENux 6.x Alpha builds, you'll do these:
+```sh
+- Download the ENux 6.0 Stable ISO
+- Flash it onto a USB with tools like dd, Rufus or Balena Etcher
+- Boot the flashed USB
+- Test The ENux Layer commands in the live environment (optional)
+- Run enux-installer on your terminal, and proceed with the installer
+- Reboot to your installed system
+```
 
-- Download the ENux ISO Image and flash it onto a USB
-- Boot that USB and start using The ENux Layer without any manual labor.
+In order
 
 ## Daily Driving Senario (Detailed Edition)
 
 You open up a terminal and then type ``enux list layer`` for it to list the available layers.
-Then you type in ``enux install arch`` with installs the arch layer to your system. I'm thinking of grabbing it's rootfs, extracting it to /enux/layer/arch and then do some wizardy to get it working (haven't planned the wizardy). 
+Then you type in ``enux install arch`` with installs the arch layer to your system. I'm thinking of grabbing it's rootfs, extracting it to /enux/layer/arch and then configuring the usernames, passwords and making it be runnable via the /enux/cross/bin path.
 
-After the arch layer is installed, you run ``enux install layer:fedora``. After that is done you run ``enux remove --disable arch`` or ``enux remove --disable layer:arch``. Then, you reboot and then get greeted with init.c and you chose the fedora layer. Since it doesn't have any X or Wayland, you get dropped into an TTY. Oh no, didn't meant to do that, reboot to enter the layer with your X/W stuff.
+After the arch layer is installed, you run ``enux install fedora``. After that is done you run ``enux remove arch`` or ``enux remove arch``. Then, you reboot and then get greeted with init.c and you chose the fedora layer. Since it doesn't have any X or Wayland, you get dropped into an TTY. Oh no, didn't meant to do that, reboot to enter the layer with your X/W stuff.
+
+## Current Status
+
+Working on ENux 6.0 Stable, and currently there are 2 issues:
+
+- Sound not working
+- Not being able to shutdown in the layers
 
 ## Extras
 
@@ -54,4 +71,4 @@ The ENux Layer will be friendly towards container, chroot, non-PID 1 environment
 
 ## What About ENux 5.x?
 
-ENux 6.x will be my top pritority alongside The ENux Layer. ENux 5.x won't be EOL, it'll still recieve minor updates. But when 6.x stabilizes to a point where its kinda usable, ENux 5.x support will be dropped.
+ENux 6.x will be my top pritority alongside The ENux Layer. ENux 5.x won't be EOL, it'll still recieve minor updates. 

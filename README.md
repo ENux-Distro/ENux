@@ -1,15 +1,14 @@
-# ENux 5.6.3
+# ENux 6.0
 
-Welcome to **ENux 5.6.3**, a Debian-based Linux distribution with **Bedrock Linux pre-installed**.
-
-![ENux Rice](images/ENux-Rice.png.png)
+Welcome to **ENux 6.0**, an LFS based distribution with **The ENux Layer**
+![ENux Rice](images/6.0.png)
 
 
 ## What is ENux?
 
-ENux 5.6.3 is a Debian-based distribution with Bedrock Linux on top, and is the first ever Linux distribution that has Bedrock Linux pre-installed.
+ENux 6.0 is a LFS based distribution a custom layer called **The ENux Layer**.
 
-This configuration allows you to use multiple mainstream Linux package managers on a single system:
+Thanks to The ENux Layer, this configuration allows you to use multiple mainstream Linux package managers on a single system:
 
 - dpkg / apt (Debian)
 - apk (Alpine)
@@ -18,48 +17,49 @@ This configuration allows you to use multiple mainstream Linux package managers 
 - zypper (openSUSE)
 - emerge / portrage (Gentoo)
 - pacman (Arch)
-- enux (ENux's pmm wrapper)
-- epkg (EPkgOS) 
-- nix (NixOS)
-- flatpak
+- pmm (The ENux Layer)
 - epm (ENux) 
 
 **Conflict resolution:**
-Bedrock Linux handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
-Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
+The ENux Layer handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
+Note: epm isn't a layer, its independent.
 
-**About Nix**: ENux 5.6.3's installer will not install Nix because of the environment. You can still test it in the live environment.
+## What is The ENux Layer
+
+The ENux Layer lets multiple Linux distributions coexist on one system and share a unified package-management front end. It's inspired by Bedrock Linux, but reimplemented from scratch so ENux carries no upstream dependency, and designed from the start to work in chroot, container, and non-PID-1 environments.
+
+A layer is a distribution's root filesystem under /enux/layer/<name>. You install layers, enter them, and install packages into them through one consistent set of commands, regardless of which distro each layer runs.
 
 ---
 
 ## Features
 
-- Debian base for stability and reliability  
-- Bedrock Linux pre-installed
+- LFS base for maximum freedom
+- The ENux Layer integrated
 - Access to multiple package managers on one system  
-- Unified **enux** tool for simplified package management
-- A nice ENux Welcomer CLI program
-- Lightweight **XFCE** desktop for performance  
-- Clean, minimal, and beginner-friendly setup
-- Our own Linux 7.1.0-rc4-enux kernel, ensuring you got the latest bleeding edge hardware and firmware support
+- Unified **pmm** tool for simplified package management
+- Lightweight, TTY-first approach with optional XFCE support  
+- Clean, minimal and flexible
+- Our own Linux 6.18.10-enux kernel, for stability and reliability
 - Created with our own ISO Creator tool
 
 ---
 
-## Difference Between ENux Versions
+## Difference Between ENux Channels
 
-### ENux Live
-- Has Bedrock Linux pre-installed, and has support for using Bedrock Linux commands on the live environment
-- Pretty minimal (~1.2 GB), has XFCE pre-installed
-- Is recommended for intermediates who want a desktop environment on the live environment, and aren't scared of the terminal
+### ENux 5.x
+- Is Debian based, with Bedrock Linux pre-integrated
+- More beginner friendly compared to 6.x
+- Won't be EOL any time soon
+- Perfect for people who want to experience ENux without the complexity
 
-### ENux Netinst
-- Has Bedrock Linux pre-installed, but doesn't have support for using Bedrock Linux commands on the live environment
-- There is no GUI, only CLI/TTY
-- The installation requires you to have really stable networking
-- Is recommended for people who doesn't want any GUI on their system, and prefer network installers
+### ENux 6.x
+- Is LFS based, with The ENux Layer pre-integrated
+- Less beginner friendly compared to ENux 6.x
+- Will be the main channel that I'll focus more on
+- Perfect for intermediate to advanced users looking for something new.
 
-## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, 5.4.3, 5.5.3 and 5.6.3
+## Difference Between ENux 1.0, 2.0, 2.1, 3.0 and 4.0, 4.5, 5.0, 5.1.1, 5.2.1 5.3.1 5.3.2 5.3.3, 5.4.3, 5.5.3, 5.6.3 and 6.0
 
 ### ENux 1.0
 - Multi-step installation process  
@@ -168,7 +168,23 @@ Note: nix, epkg, epm and flatpak aren't a part of brl/pmm, they're independent
 - Added ENux Package Manager GUI
 - The installer won't install Nix because of the installer environment. You can still use it in the live environment.
 - Removed the root and username ENux's password in the live environment
-- 
+
+### ENux 6.0
+
+- Switched bases from Debian to LFS (thought it would be hard, but actually it went smooth)
+- Switched from Bedrock to "The ENux Layer"
+[The ENux Layer](https://github.com/ENux-Distro/The-ENux-Layer) is a Bedrock-inspired layer, that makes multiple Linux distributions co-exist in a single system.
+- With The ENux Layer, a few tools have been added. ``enux`` the system management tool, ``layer`` the layering tool that lets you enter, enable, disable and list layers, and ``pmm`` for unified package management across layers.
+- 12 package manager support has been added (compared to 6.0 Prototype's 0)
+- Uses a 6.18.10-enux kernel, for maximum stability and reliability
+- Added init.c
+- Created custom installer (currently CLI, will expand it to TUI in the later versions)
+- Custom initramfs creation tool is included
+- Uses a custom initramfs layout, that contains a simple yet powerful init, with only required modules to boot.
+- Custom /etc/bash.bashrc, inspired by Debian's
+- Includes install-xfce, a wrapper that installs XFCE accordingly, Start-XFCE to start xfce accordingly, and nm-tui to configure networking
+- Includes musl alongside of glibc
+
 ## Historic Versions of ENux
 
 ### ENux Pre-Prototype 1.0
@@ -215,51 +231,31 @@ This approach allows ENux to stay fast-moving while still providing stable, inst
 - Storage: 45+ GB  
 
 ---
-## Installation Guide for ENux Live
+## Installation Guide for ENux 6.x
 
-1. Download ENux Live from
-   - [ENux-5.6.3.iso](http://www.emirpasha.com/ENux-5.6.3.iso)
-   - [ENux-5.6.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.6.3/ENux-5.6.3.iso/download)
-   - [ENux-5.6.3.iso (Internet Archive)](https://archive.org/download/enux-5.6.3/ENux-5.6.3.iso)
+1. Download the latest ENux 6.x version from [here](https://www.emirpasha.com)
+  
+2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
+
+3. Boot from the USB drive and run the **ENux Installer (CLI)**.
+
+4. After installation and reboot, start using ENux
+
+## Installation Guide for ENux 5.x
+
+1. Download the latest ENux 6.x version from [here](https://www.emirpasha.com)
 
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
-3. Boot from the USB drive and run the **ENux Installer (TUI)**.
+3. Boot from the USB drive and run the **ENux Installer**, available on both TUI and GUI
 
-4. After installation and reboot, and the **ENux Welcomer** will welcome you
-
-## Installation Guide for ENux Netinst
-
-1. Download ENux Netinst from
-   - [ENux-Netinst-5.6.3.iso](http://www.emirpasha.com/ENux-Netinst-5.6.3.iso)
-   - [ENux-Netinst-5.6.3.iso (Sourceforge)](https://sourceforge.net/projects/enux/files/ENux-5.6.3/ENux-Netinst-5.6.3.iso/download)
-   - [ENux-Netinst-5.6.3.iso (GitHub)](https://github.com/ENux-Distro/ENux/releases/download/ENux-5.6.3/ENux-Netinst-5.6.3.iso)
-
-2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
-
-3. Boot from the USB drive and select **Install ENux** on the bootloader
-
-4. After installation and reboot, and the **ENux Welcomer** will welcome you
+4. After installation and reboot, start using ENux
 
 ## Known Issues
 
-### ENux Welcomer Mirroring
+### LightDM Not Appearing After Installation (5.x)
 
-During the ENux Welcomer, Bedrock Linux strata(s) are fetched from external mirrors.
-
-In rare cases, strata fetching may fail due to:
-- Temporary mirror outages
-- Slow or unstable internet connections
-- Regional mirror availability issues
-
-If this happens, you can try **brl fetch**ing the **strata** again with different mirrors
-No system reinstallation is required.
-
-Once the strata are fetched successfully, ENux is fully ready to use.
-
-### LightDM Not Appearing After Installation
-
-In rare cases of ENux Installation, LightDM couldn't be fully setup.
+In rare cases of ENux 5.x installation, LightDM couldn't be fully setup.
 Therefore after installation, you may be on the TTY terminal.
 
 In order to get to **XFCE**, you must run
@@ -267,44 +263,30 @@ In order to get to **XFCE**, you must run
 
 after you log in
 
-### WiFi Not Working Out of the Box
+### WiFi Not Working Out of the Box (6.x)
 
-When you first boot into ENux, you'll see that there is no WiFi on ENux. 
-In order to get WiFi, do these steps:
+When you first boot into ENux with a computer that uses WiFi, you might see it won't
+work. Let's fix that.
 
-- You need internet to do the steps below, so temporarily stream your phone's internet via USB tethering.
-Don't worry, with USB tethering you can stream your phone's WiFi.
-- Then, we need to see if the kernel see's your WiFi card. Open up the terminal and type `lspci -nnk | grep -iA 3 net`
-If it says "Kernel driver in use", your hardware is recognized, but the network service isn't running.
-If it says "Kernel modules" but no "driver in use", you are missing the firmware.
-- First, install the firmware by running `sudo apt install linux-firmware firmware-linux-nonfree firmware-[output of lsspci -nnk | grep -iA 3 net (for example iwlwifi)]
-Warning, you may need to add `non-free` and `non-free-firmware` to your `/etc/apt/sources.list`
-- After installing the firmwares, enable Network Manager by running `sudo systemctl enable --now NetworkManager`
-- We recommend you also run `sudo modprobe -r [output of lsspci -nnk | grep -iA 3 net (for example iwlwifi)] && sudo modprobe [output of lsspci -nnk | grep -iA 3 net (for example iwlwifi)]` to load the kernel modules
-- Once that's all done, run `ip a`, if you see `wlan(...)` then your WiFi is initiliazed
-- To connect to your WiFi Network, run `nmtui` and go to `Activate a Connection`. Select your WiFi router, and enter its password.
-- After connecting to the network, sanity check if its running or not by running `ping emirpasha.com`. If you see something like:
-
-PING www.emirpasha.com (2606:4700:3033::6815:50c3) 56 data bytes
-
-64 bytes from 2606:4700:3033::6815:50c3: icmp_seq=1 ttl=59 time=4.27 ms
-
-it means your WiFi is working.
-
-### Lots of dots Gentoo brl fetch operation on the ENux Welcomer
-
-If you see 
-![wget](images/wget.png)
-
-When the ENux Welcomer brl fetches Gentoo, then its nothing to panic or freak out. This means that the ENux Welcomer is downloading Gentoo stuff properly. Everything is working. (Also you can tell your friends you're hacking when this appears :D )
-
-
+- Run ``sudo dmesg | grep -i firmware`` on the terminal, you should see ``iwlwifi``, ``realtek`` and etc. Let's assume we have iwlwifi
+- Run ``modprobe iwlwifi`` as root
+- After that, run ``nm-tui`` on the terminal and scroll down to ``Activate a connection``. Chose your network and enter the password
+- If you don't see anything, exit nm-tui, wait for 5 seconds and try again, it should work this time.
+  
 ## Dev Notes
 
-- The username on the live system is `ENux`
-- The password on the live system is `enux`
+For ENux 6.x
+- The username in the live system is `root`
+- There's no password in the live system
 
-- You can watch the ENux installation video from [here](https://www.youtube.com/watch?v=HXv2x1p0AKA)
+For ENux 5.x
+- The username in the live system is `ENux`
+- There's no password in the live system
+
+You can watch the ENux 5.x installation video from [here](https://www.youtube.com/watch?v=HXv2x1p0AKA)
+
+ENux 6.x installation video will come pretty soon
+
 ## Troubleshooting
 
 If you encounter issues:

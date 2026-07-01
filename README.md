@@ -1,6 +1,7 @@
 # ENux 6.0
 
 Welcome to **ENux 6.0**, an LFS based distribution with **The ENux Layer**
+
 ![ENux Rice](images/6.0.png)
 
 

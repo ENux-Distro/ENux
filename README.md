@@ -1,13 +1,13 @@
-# ENux 6.0
+# ENux 6.0.1
 
-Welcome to **ENux 6.0**, an LFS based distribution with **The ENux Layer**
+Welcome to **ENux 6.0.1**, an LFS based distribution with **The ENux Layer**
 
 ![ENux Rice](images/6.0.png)
 
 
 ## What is ENux?
 
-ENux 6.0 is a LFS based distribution a custom layer called **The ENux Layer**.
+ENux 6.0.1 is a LFS based distribution a custom layer called **The ENux Layer**.
 
 Thanks to The ENux Layer, this configuration allows you to use multiple mainstream Linux package managers on a single system:
 
@@ -22,7 +22,7 @@ Thanks to The ENux Layer, this configuration allows you to use multiple mainstre
 - epm (ENux) 
 
 **Conflict resolution:**
-The ENux Layer handles most compatibility headaches. For beginners, **enux** simplifies package management into one easy-to-use tool.
+The ENux Layer handles most compatibility headaches. For beginners, **pmm** simplifies package management into one easy-to-use tool.
 Note: epm isn't a layer, its independent.
 
 ## What is The ENux Layer
@@ -186,6 +186,11 @@ A layer is a distribution's root filesystem under /enux/layer/<name>. You instal
 - Includes install-xfce, a wrapper that installs XFCE accordingly, Start-XFCE to start xfce accordingly, and nm-tui to configure networking
 - Includes musl alongside of glibc
 
+### ENux 6.0.1
+
+- Switched from a CLI installer to a TUI installer.
+- **Note, ENux development will slow down. Go to https://github.com/ENux-Distro/ENux/blob/main/ABOUT-NEXTYEAR.md for more information**
+
 ## Historic Versions of ENux
 
 ### ENux Pre-Prototype 1.0
@@ -238,7 +243,7 @@ This approach allows ENux to stay fast-moving while still providing stable, inst
   
 2. Flash the ISO to a USB drive using tools such as **Rufus** or **Balena Etcher**.
 
-3. Boot from the USB drive and run the **ENux Installer (CLI)**.
+3. Boot from the USB drive and run the **ENux Installer (TUI)**.
 
 4. After installation and reboot, start using ENux
 

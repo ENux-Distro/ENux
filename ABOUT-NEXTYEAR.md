@@ -31,4 +31,10 @@ Although development will slow down, my commitment to ENux hasn't changed.
 
 The time I'm spending studying is an investment in my future. My goal is to get into a great high school, learn even more about programming and computer science, and come back with more knowledge and experience to make ENux even better.
 
+#
+
+If you've enjoyed ENux or simply want to wish me luck during LGS, I'd love to hear from you.
+
+emir@emirpasha.com
+
 Thank you to everyone who supports the project and understands the situation. ❤️

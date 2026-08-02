@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
             if (geteuid() == 0) {
                 printf("And the power is unlocked now\n"); /* Thank you cajald for this idea */
             }
+            return 0;
         }
     }
 
@@ -50,23 +51,34 @@ int main(int argc, char **argv) {
 
     newargv[argc] = NULL;
 
+    if (geteuid() != 0) {
+        fprintf(stderr,
+            "ERROR: You need to run this program with root privileges\n");
+        return EXIT_FAILURE;
+    }
+
     pid_t pid = fork();
 
     if (pid == -1) {
-        perror("enux: fork");
+        perror("fork");
         return EXIT_FAILURE;
     }
 
     if (pid == 0) {
-        printf("\n");
         execv(PMM, newargv);
 
-        perror("enux: fork");
+        perror("execv");
         _exit(EXIT_FAILURE);
     }
 
-    siginfo_t info;
-    waitid(WEXITED, 0, &info, WEXITED);
+    /* Parent */
+
+    int status;
+
+    waitpid(pid, &status, 0);
+
+    if (WIFEXITED(status))
+        return WEXITSTATUS(status);
 
     return EXIT_FAILURE;
 }

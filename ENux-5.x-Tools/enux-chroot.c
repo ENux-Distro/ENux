@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <limits.h>
 #include <sys/mount.h>
+#include <limits.h>
 
 #define CHROOT_DIR argv[1]
 

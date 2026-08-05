@@ -211,13 +211,9 @@ A layer is a distribution's root filesystem under /enux/layer/<name>. You instal
 
 ## ENux Release Cycle
 
-TL;DR: ENux uses a snapshot-based semi-rolling release model.
+ENux used to be a snapshot-based semi-rolling release distro with new releases every 7-30+ days. But because me, the creator of ENux, [is studying for LGS](https://github.com/ENux-Distro/ENux/blob/main/ABOUT-NEXTYEAR.md), ENux won't have new releases that much. I'll help anyone who needs to troubleshoot something on ENux (open a new GitHub issue), talk with the community and update the git repo with new stuff.
 
-ENux is developed as a fast-moving system, where changes are continuously made and tested. When a set of changes is stable and meaningful, a new snapshot release is published (e.g. ENux 5.6.3).
-
-ENux does not follow a fixed long-term release schedule. Instead, releases are made when major updates are ready, typically every 7–30+ days depending on development activity.
-
-This approach allows ENux to stay fast-moving while still providing stable, installable snapshot ISOs for users.
+(damn, I think I should change ABOUT-NEXTYEAR.md to something else, lol)
 
 ## Hardware Requirements
 

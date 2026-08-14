@@ -274,6 +274,12 @@ work. Let's fix that.
 - Run ``modprobe iwlwifi`` as root
 - After that, run ``nm-tui`` on the terminal and scroll down to ``Activate a connection``. Chose your network and enter the password
 - If you don't see anything, exit nm-tui, wait for 5 seconds and try again, it should work this time.
+
+### Installation Failing (5.x)
+
+You may encounter the installer failing because apt update didn't succeed. You must set your time properly by running
+
+- ```sudo date -s "<hour>:<time>:<seconds>"```
   
 ## Dev Notes
 
